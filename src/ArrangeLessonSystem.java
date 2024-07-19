@@ -14,6 +14,7 @@ public class ArrangeLessonSystem {
 		
 		for(String className : SchoolInformations.getInstance().CLASSES) {
 		
+			
 			checkAvailableEmptyLesson.put(className, new Integer[2]);
 		
 			checkAvailableEmptyLesson.get(className)[CURRENT_LESSONS_HAS_IN_THE_MORNING] = 0;
@@ -45,7 +46,7 @@ public class ArrangeLessonSystem {
 			do {
 				
 				canAddLesson = scheduleTable.get(_class.getName())[indexLesson].equals("no one") &&
-						checkIsTeacherTeachingAnotherClass(indexLesson, teacherName, _class.getSpeciality().name());
+						checkIsTeacherTeachingAnotherClass(indexLesson, teacherName, _class.getSpeciality().getName());
 				
 				count++;
 				indexLesson++;
@@ -66,7 +67,7 @@ public class ArrangeLessonSystem {
 		
 	}
 	
-	private boolean checkIsTeacherTeachingAnotherClass(int indexLessonNeedAdding, String teacherName, String specialityName) {
+	public boolean checkIsTeacherTeachingAnotherClass(int indexLessonNeedAdding, String teacherName, String specialityName) {
 		
 		if(indexLessonNeedAdding >= SchoolInformations.MAX_LESSONS_IN_MORNING + SchoolInformations.MAX_LESSONS_IN_AFTERNOON) {
 			return false;
@@ -76,7 +77,7 @@ public class ArrangeLessonSystem {
 			
 			boolean isThisTeacherTeachingAnotherClass = 
 					scheduleTable.get(className)[indexLessonNeedAdding]
-							.equals(FormatDisplay.getLessonDisplayFormat(teacherName, specialityName));
+							.equals(FormatDisplayAndExchangeData.getLessonDisplayFormat(teacherName, specialityName));
 			
 			if(isThisTeacherTeachingAnotherClass) {
 				return false;
@@ -89,19 +90,21 @@ public class ArrangeLessonSystem {
 
 	
 	
-	public void addLesson(SchoolClass _class, String teacherName) {
+	public void addLesson(SchoolClass _class, Teacher teacher) {
 		
 		int quantitiesLessonsCurrentlyHas = 0;
 		
-		boolean isInMorning = _class.getSpeciality().IsInMorning();
+		boolean isInMorning = _class.getSpeciality().isInMorning();
 		
 		int maxLessonHas = 0;
 		
+		String teacherName = teacher.getName();
 		
 		if(isInMorning) {
 			
 			quantitiesLessonsCurrentlyHas = 
 					checkAvailableEmptyLesson.get(_class.getName())[CURRENT_LESSONS_HAS_IN_THE_MORNING];
+			
 			
 			maxLessonHas = SchoolInformations.MAX_LESSONS_IN_MORNING;
 			
@@ -116,14 +119,13 @@ public class ArrangeLessonSystem {
 		}
 		
 		
-		int indexNeedAdd = 
-				checkCapabilityOfAddClass(quantitiesLessonsCurrentlyHas, maxLessonHas, _class,
-						teacherName, isInMorning);
-	
+		int indexNeedAdd = checkCapabilityOfAddClass(quantitiesLessonsCurrentlyHas, maxLessonHas, 
+				_class, teacherName, isInMorning);
 	
 		if(indexNeedAdd != -1) {
 			
-			scheduleTable.get(_class.getName())[indexNeedAdd] = teacherName + "-" + _class.getSpeciality();
+			scheduleTable.get(_class.getName())[indexNeedAdd] = 
+					FormatDisplayAndExchangeData.getLessonDisplayFormat(teacherName, _class.getSpeciality().getName());
 			
 			_class.setRemainingLessonPerWeek(_class.getRemainingLessonPerWeek() - 1);
 			

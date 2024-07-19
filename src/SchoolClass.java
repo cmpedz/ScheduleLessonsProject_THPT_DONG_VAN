@@ -20,6 +20,7 @@ public class SchoolClass {
 		this.lessonPerYear = lessonPerYear;
 		this.speciality = speciality;
 		this.remainingLessonPerWeek = lessonsPerWeek;
+		
 	}
 
 	public String getName() {
@@ -54,7 +55,6 @@ public class SchoolClass {
 	public void setRemainingLessonPerWeek(int remainingLessonPerWeek) {
 		this.remainingLessonPerWeek = remainingLessonPerWeek;
 	}
-	
-	
+
 
 }

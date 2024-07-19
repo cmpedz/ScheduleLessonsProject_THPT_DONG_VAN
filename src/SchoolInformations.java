@@ -5,66 +5,107 @@ public class SchoolInformations {
 	
 	private static SchoolInformations instance = null;
 	
+	
+	public final ArrayList<Speciality> COURSE_LIST = new ArrayList<Speciality>();
+	
+	public final ArrayList<Group> GROUPS = new ArrayList<Group>();
+	
+	public final ArrayList<String> CLASSES = new ArrayList<String>();
+	
+	public static final int MAX_LESSONS_IN_MORNING = 5;
+	
+	public static final int MAX_LESSONS_IN_AFTERNOON = 3;
+	
 	private SchoolInformations() {
 		
-		COURSE_LIST.add(Speciality.CD_Hóa);
+		//construct data for courses
+		COURSE_LIST.add( new Speciality("CD_Hóa", 2, true));
+		ESpeciality.CD_Hóa.setIndex(0);
 		
-		COURSE_LIST.add(Speciality.CD_Lý);
+		COURSE_LIST.add(new Speciality("CD_Lý", 2, true));
+		ESpeciality.CD_Lý.setIndex(1);
 		
-		COURSE_LIST.add(Speciality.CD_Sinh);
+		COURSE_LIST.add(new Speciality("CD_Sinh", 2, true));
+		ESpeciality.CD_Sinh.setIndex(2);
 		
-		COURSE_LIST.add(Speciality.CD_Sử);
+		COURSE_LIST.add(new Speciality("CD_Sử", 2, true));
+		ESpeciality.CD_Sử.setIndex(3);
 		
-		COURSE_LIST.add(Speciality.CD_Toán);
+		COURSE_LIST.add(new Speciality("CD_Toán", 2, true));
+		ESpeciality.CD_Toán.setIndex(4);
 		
-		COURSE_LIST.add(Speciality.CD_Văn);
+		COURSE_LIST.add(new Speciality("CD_Văn", 2, true));
+		ESpeciality.CD_Văn.setIndex(5);
 		
-		COURSE_LIST.add(Speciality.CD_Địa);
+		COURSE_LIST.add(new Speciality("CD_Địa", 2, true));
+		ESpeciality.CD_Địa.setIndex(6);
 		
-		COURSE_LIST.add(Speciality.CN);
+		COURSE_LIST.add(new Speciality("CN", 1, true));
+		ESpeciality.CN.setIndex(7);
 		
-		COURSE_LIST.add(Speciality.GDKT_PL);
+		COURSE_LIST.add(new Speciality("GDKT_PL", 1, false));
+		ESpeciality.GDKT_PL.setIndex(8);
 		
-		COURSE_LIST.add(Speciality.GDĐP);
+		COURSE_LIST.add(new Speciality("GDĐP", 1, false));
+		ESpeciality.GDĐP.setIndex(9);
 		
-		COURSE_LIST.add(Speciality.Hóa);
+		COURSE_LIST.add(new Speciality("Hóa", 1, true));
+		ESpeciality.Hóa.setIndex(10);
 		
-		COURSE_LIST.add(Speciality.HĐTN);
+		COURSE_LIST.add(new Speciality("HĐTN", 1, false));
+		ESpeciality.HĐTN.setIndex(11);
 		
-		COURSE_LIST.add(Speciality.Lý);
+		COURSE_LIST.add(new Speciality("Lý", 1, true));
+		ESpeciality.Lý.setIndex(12);
 		
-		COURSE_LIST.add(Speciality.Sinh);
+		COURSE_LIST.add(new Speciality("Sinh", 1, true));
+		ESpeciality.Sinh.setIndex(13);
 		
-		COURSE_LIST.add(Speciality.Tin);
+		COURSE_LIST.add(new Speciality("Tin", 1, true));
+		ESpeciality.Tin.setIndex(14);
 		
-		COURSE_LIST.add(Speciality.Địa);
+		COURSE_LIST.add(new Speciality("Địa", 1, true));
+		ESpeciality.Địa.setIndex(15);
 		
-		for(int i = 0; i < COURSE_LIST.size(); i++) {
-			COURSE_LIST.get(i).setIndex(i);
-		}
+		COURSE_LIST.add(new Speciality("Văn", 2, true));
+		ESpeciality.Văn.setIndex(16);
 		
+		COURSE_LIST.add(new Speciality("Anh", 2, true));
+		ESpeciality.Anh.setIndex(17);
+		
+		
+		//construct data for groups
 		GROUPS.add(Group.BAN_GIÁM_HIỆU);
+		
 		GROUPS.add(Group.TỔ_TỰ_NHIÊN);
+		
 		GROUPS.add(Group.TỔ_XÃ_HỘI);
 		
 		for(int i = 0; i< GROUPS.size(); i++) {
 			GROUPS.get(i).setIndex(i);
 		}
 		
-		for(int i = 0; i < 2; i++) {
+		//construct data for classes 
+		for(int i = 0; i < 3; i++) {
 			
 		   int classNumber = 10 + i;
 		   
+		   int classChar = 'A' + i;
+		   
 		   for(int j = 1; j <= 7; j++) {
-			   String className = classNumber + "A" + j;
+			   
+			   String className = classNumber + "" + (char)classChar + "" + j ;
+			   
 			   CLASSES.add(className);
+			   
+			   if(i == 2 && j == 6) {
+				   break;
+			   }
 		   }
 		}
 		
-		for(int i = 1; i < 7; i++) {
-			String className = "12B" + i;
-			CLASSES.add(className);
-		}
+		
+	 
 		
 	}
 	
@@ -78,15 +119,6 @@ public class SchoolInformations {
 		
 		return instance;
 	}
-	
-	public final ArrayList<Speciality> COURSE_LIST = new ArrayList<Speciality>();
-	
-	public final ArrayList<Group> GROUPS = new ArrayList<Group>();
-	
-	public final ArrayList<String> CLASSES = new ArrayList<String>();
-	
-	public static final int MAX_LESSONS_IN_MORNING = 5;
-	
-	public static final int MAX_LESSONS_IN_AFTERNOON = 3;
+
 
 }

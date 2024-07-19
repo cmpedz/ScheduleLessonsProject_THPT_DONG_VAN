@@ -20,31 +20,39 @@ public class ScheduleEachWeek {
 	}
 	
 	public void print() {
-		int order = 2;
+		int index = 0;
 		
 		for(ScheduleEachDay s : scheduleEachDays) {
 			System.out.println();
-			System.out.println("===================================" + order + "======================================");
+			System.out.println("===================================" + FormatDisplayAndExchangeData.exchangeNumberIntoDay(index) + "======================================");
 			System.out.println();
 			s.print();
 			System.out.println();
-			order++;
+			index++;
 		}
 	}
 	
 	public void arrangeLessons() {
+		
+		int index = 0;
 		
 		for(ScheduleEachDay s : scheduleEachDays) {
 			
 			removeTeacherSystem.removeTeacherWhoMeetLessonsQuantities(teachers);
 			
 			for(int i=0; i < teachers.size(); i++) {
-				s.addTeacherLessonIntoScheduleTable(teachers.get(i));
+				
+				boolean isDayOff = teachers.get(i).getDayOff().toString().equals(FormatDisplayAndExchangeData.exchangeNumberIntoDay(index));
+				
+				if(!isDayOff) {
+					s.addTeacherLessonIntoScheduleTable(teachers.get(i));
+				}
+				
 			}
+			
+			index++;
 		}
 	}
-	
-	
 	
 	public void addTeacherIntoList(Teacher t) {
 		teachers.add(t);

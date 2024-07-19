@@ -1,41 +1,35 @@
 
-public enum Speciality {
-	 Lý(true),
-	 Hóa(true),
-	 Sinh(true),
-	 GDKT_PL(false),
-	 Tin(true),
-	 CN(true),
-	 Địa(true),
-	 CD_Toán(false),
-	 CD_Lý(false),
-	 CD_Hóa(false),
-	 CD_Sinh(false),
-	 CD_Văn(false),
-	 CD_Sử(false),
-	 CD_Địa(false),
-	 GDĐP(false),
-	 HĐTN(false);
+public class Speciality {
 	
-	private boolean isInMorning;
+	private final boolean IS_IN_MORNING;
 	
-	private int index;
+	private final int MAX_CONTINUES_LESSONS_CAN_TEACH;
 	
-	private Speciality(boolean b) {
-		
-		this.isInMorning = b;
-		
+	private final String NAME;
+	
+	
+
+	public Speciality( String nAME, int mAX_CONTINUES_LESSONS_CAN_TEACH, boolean iS_IN_MORNING) {
+		super();
+		IS_IN_MORNING = iS_IN_MORNING;
+		MAX_CONTINUES_LESSONS_CAN_TEACH = mAX_CONTINUES_LESSONS_CAN_TEACH;
+		NAME = nAME;
 	}
-	
-	public boolean IsInMorning() {
-		return this.isInMorning;
+
+	public boolean isInMorning() {
+		return IS_IN_MORNING;
 	}
-	
-	public void setIndex(int i) {
-		this.index = i;
+
+	public int getMaxContinuesLessonCanTeach() {
+		return MAX_CONTINUES_LESSONS_CAN_TEACH;
 	}
-	
-	public int getIndex() {
-		return this.index;
+
+
+	public String getName() {
+		return NAME;
 	}
+
+
+	
+	
 }

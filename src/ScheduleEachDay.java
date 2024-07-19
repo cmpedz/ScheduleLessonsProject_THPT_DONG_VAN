@@ -1,10 +1,6 @@
-import java.awt.print.Printable;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+import java.util.TreeMap;
+
 
 public class ScheduleEachDay {
 	 
@@ -61,8 +57,10 @@ public class ScheduleEachDay {
 		
 		for(SchoolClass _class : t.getClassesTeaching()){
 			
-				this.arrangeLesson.addLesson(_class, t.getName());
-			
+			for(int i = 0; i < _class.getSpeciality().getMaxContinuesLessonCanTeach(); i++) {
+				this.arrangeLesson.addLesson(_class, t);
+			}
+				
 		}
 		
 	}
