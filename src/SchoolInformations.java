@@ -1,16 +1,16 @@
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-public class SchoolInformations {
+public class SchoolInformations implements ISchoolInformations{
 	
 	private static SchoolInformations instance = null;
 	
 	
-	public final ArrayList<Speciality> COURSE_LIST = new ArrayList<Speciality>();
+	private final ArrayList<Speciality> COURSE_LIST = new ArrayList<Speciality>();
 	
-	public final ArrayList<Group> GROUPS = new ArrayList<Group>();
+	private final ArrayList<Group> GROUPS = new ArrayList<Group>();
 	
-	public final ArrayList<String> CLASSES = new ArrayList<String>();
+	private final ArrayList<String> CLASSES = new ArrayList<String>();
 	
 	public static final int MAX_LESSONS_IN_MORNING = 5;
 	
@@ -118,6 +118,42 @@ public class SchoolInformations {
 		}
 		
 		return instance;
+	}
+
+
+
+	@Override
+	public ArrayList<Speciality> getCoursesList() {
+		// TODO Auto-generated method stub
+		
+		if(instance != null) {
+			return instance.COURSE_LIST;
+		}
+		
+		return null;
+	}
+
+
+
+	@Override
+	public ArrayList<Group> getGroupsList() {
+		// TODO Auto-generated method stub
+		if(instance != null) {
+			return instance.GROUPS;
+		}
+		
+		return null;
+	}
+
+
+
+	@Override
+	public ArrayList<String> getClassesNameList() {
+		// TODO Auto-generated method stub
+		if(instance != null) {
+			return instance.CLASSES;
+		}
+		return null;
 	}
 
 

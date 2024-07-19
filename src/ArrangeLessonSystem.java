@@ -10,9 +10,11 @@ public class ArrangeLessonSystem {
 	
 	private TreeMap<String, String[]> scheduleTable;
 	
+	private ISchoolInformations iSchoolInformations = SchoolInformations.getInstance();
+	
 	public ArrangeLessonSystem(TreeMap<String, String[]> ScheduleTable) {
 		
-		for(String className : SchoolInformations.getInstance().CLASSES) {
+		for(String className : iSchoolInformations.getClassesNameList()) {
 		
 			
 			checkAvailableEmptyLesson.put(className, new Integer[2]);
@@ -73,7 +75,7 @@ public class ArrangeLessonSystem {
 			return false;
 		}
 		
-		for(String className : SchoolInformations.getInstance().CLASSES) {
+		for(String className : iSchoolInformations.getClassesNameList()) {
 			
 			boolean isThisTeacherTeachingAnotherClass = 
 					scheduleTable.get(className)[indexLessonNeedAdding]

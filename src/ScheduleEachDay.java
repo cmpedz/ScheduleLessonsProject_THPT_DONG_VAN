@@ -9,9 +9,11 @@ public class ScheduleEachDay {
 	
 	private ArrangeLessonSystem arrangeLesson;
 	
+	private ISchoolInformations iSchoolInformations = SchoolInformations.getInstance();
+	
 	
 	public ScheduleEachDay() {
-		for(String className : SchoolInformations.getInstance().CLASSES) {
+		for(String className : iSchoolInformations.getClassesNameList()) {
 			
 			int quantitiesLessonEachDay = SchoolInformations.MAX_LESSONS_IN_MORNING 
 					+ SchoolInformations.MAX_LESSONS_IN_AFTERNOON;
@@ -29,7 +31,7 @@ public class ScheduleEachDay {
 	
 	public void print() {
 		 System.out.print("----------");
-		 for(String className : SchoolInformations.getInstance().CLASSES) {
+		 for(String className : iSchoolInformations.getClassesNameList()) {
 			 System.out.print(className);
 			 System.out.print("----------");
 		 }
@@ -40,7 +42,7 @@ public class ScheduleEachDay {
 			 
 			 System.out.print("----------");
 			 
-			 for(String className : SchoolInformations.getInstance().CLASSES) {
+			 for(String className : iSchoolInformations.getClassesNameList()) {
 				 
 				 System.out.print(scheduleTable.get(className)[i]);
 				 
