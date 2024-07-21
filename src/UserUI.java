@@ -37,30 +37,26 @@ public class UserUI {
 		
 		ArrayList<SchoolClass> classesTeached2 = new ArrayList<SchoolClass>();
 		
-		classesTeached2.add(new SchoolClass("10A1", 3, 100, iSchoolInformations.getCoursesList().get(ESpeciality.Hóa.getIndex())
+		classesTeached2.add(new SchoolClass("11B2", 3, 485, iSchoolInformations.getCoursesList().get(ESpeciality.Anh.getIndex())
 				));
 		
-		classesTeached2.add(new SchoolClass("10A3", 3, 100, iSchoolInformations.getCoursesList().get(ESpeciality.Hóa.getIndex())
+		classesTeached2.add(new SchoolClass("11B1", 3, 485, iSchoolInformations.getCoursesList().get(ESpeciality.Anh.getIndex())
 				));
 		
-		classesTeached2.add(new SchoolClass("10A2", 3, 100, iSchoolInformations.getCoursesList().get(ESpeciality.Hóa.getIndex())
+		classesTeached2.add(new SchoolClass("10A4", 3, 485, iSchoolInformations.getCoursesList().get(ESpeciality.Anh.getIndex())
 				));
 		
-		classesTeached2.add(new SchoolClass("10A4", 3, 100, iSchoolInformations.getCoursesList().get(ESpeciality.Hóa.getIndex())
+		classesTeached2.add(new SchoolClass("10A5", 3, 485, iSchoolInformations.getCoursesList().get(ESpeciality.Anh.getIndex())
 				));
 		
-		classesTeached2.add(new SchoolClass("10A2", 3, 100, iSchoolInformations.getCoursesList().get(ESpeciality.Hóa.getIndex())
+		classesTeached2.add(new SchoolClass("10A6", 3, 485, iSchoolInformations.getCoursesList().get(ESpeciality.Anh.getIndex())
 				));
 		
-		classesTeached2.add(new SchoolClass("10A3", 3, 100, iSchoolInformations.getCoursesList().get(ESpeciality.Hóa.getIndex())
-				));
 		
-		classesTeached2.add(new SchoolClass("10A1", 3, 100, iSchoolInformations.getCoursesList().get(ESpeciality.Hóa.getIndex())
-				));
 		
 		Teacher[] teachers = { new Teacher("Mã Đức Bảo", Group.TỔ_XÃ_HỘI, DayOff.Thứ_Năm, 
 				classesTeached1),
-				new Teacher("Nguyễn Văn B", Group.TỔ_TỰ_NHIÊN, DayOff.Thứ_Ba, 
+				new Teacher("Củng Thị Trường", Group.TỔ_XÃ_HỘI, DayOff.Thứ_Năm, 
 						classesTeached2)
 				
 		};

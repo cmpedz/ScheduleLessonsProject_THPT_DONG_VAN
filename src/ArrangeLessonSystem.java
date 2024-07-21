@@ -8,6 +8,8 @@ public class ArrangeLessonSystem {
 	
 	private TreeMap<String, Integer[]> checkAvailableEmptyLesson = new TreeMap<String, Integer[]>();
 	
+	private TreeMap<String, Pairs<String, Boolean>> isHavingMainCourse = new TreeMap<String, Pairs<String, Boolean>>();
+	
 	private TreeMap<String, String[]> scheduleTable;
 	
 	private ISchoolInformations iSchoolInformations = SchoolInformations.getInstance();
@@ -24,6 +26,8 @@ public class ArrangeLessonSystem {
 			checkAvailableEmptyLesson.get(className)[CURRENT_LESSONS_HAS_IN_THE_AFTERNOON] = 0;
 			
 			this.scheduleTable = ScheduleTable;
+			
+			isHavingMainCourse.put(className, new Pairs("",false));
 		}
 	}
 	
@@ -44,11 +48,14 @@ public class ArrangeLessonSystem {
 			}
 			
 			boolean canAddLesson = false;
+	
 			
 			do {
 				
 				canAddLesson = scheduleTable.get(_class.getName())[indexLesson].equals("no one") &&
-						checkIsTeacherTeachingAnotherClass(indexLesson, teacherName, _class.getSpeciality().getName());
+						checkIsTeacherTeachingAnotherClass(indexLesson, teacherName, _class.getSpeciality().getName())
+						&& checkCanAddIfLessonIsMainCourse(_class);
+				
 				
 				count++;
 				indexLesson++;
@@ -67,6 +74,24 @@ public class ArrangeLessonSystem {
 		return -1;
 		
 		
+	}
+	
+	public boolean checkCanAddIfLessonIsMainCourse(SchoolClass _class) {
+		
+		Pairs<String, Boolean> currentClassInfors = isHavingMainCourse.get(_class.getName());
+		
+		boolean isCurrentClassHavingMainCourse = currentClassInfors.getValue2();
+		
+		System.out.println("check main course needs adding : " + _class.getSpeciality().getName() + ", current main course we Have :" + currentClassInfors.getValue1());
+		
+		boolean isCourseAddedDistinctFromCurrentMainCourse = !_class.getSpeciality().getName().equals(currentClassInfors.getValue1());
+		
+		if(isCurrentClassHavingMainCourse && _class.getSpeciality().isIS_MAIN_COURSE() &&
+				isCourseAddedDistinctFromCurrentMainCourse) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public boolean checkIsTeacherTeachingAnotherClass(int indexLessonNeedAdding, String teacherName, String specialityName) {
@@ -126,15 +151,26 @@ public class ArrangeLessonSystem {
 	
 		if(indexNeedAdd != -1) {
 			
-			scheduleTable.get(_class.getName())[indexNeedAdd] = 
-					FormatDisplayAndExchangeData.getLessonDisplayFormat(teacherName, _class.getSpeciality().getName());
+			String className = _class.getName();
+			
+			Speciality speciality = _class.getSpeciality();
+			
+			scheduleTable.get(className)[indexNeedAdd] = 
+					FormatDisplayAndExchangeData.getLessonDisplayFormat(teacherName, speciality.getName());
 			
 			_class.setRemainingLessonPerWeek(_class.getRemainingLessonPerWeek() - 1);
 			
 			if(isInMorning) {
-				checkAvailableEmptyLesson.get(_class.getName())[CURRENT_LESSONS_HAS_IN_THE_MORNING]++;
+				checkAvailableEmptyLesson.get(className)[CURRENT_LESSONS_HAS_IN_THE_MORNING]++;
 			} else {
-				checkAvailableEmptyLesson.get(_class.getName())[CURRENT_LESSONS_HAS_IN_THE_AFTERNOON]++;
+				checkAvailableEmptyLesson.get(className)[CURRENT_LESSONS_HAS_IN_THE_AFTERNOON]++;
+			}
+			
+			if(!isHavingMainCourse.get(className).getValue2()) {
+				
+				isHavingMainCourse.get(className).setValue1( speciality.getName());
+				
+				isHavingMainCourse.get(className).setValue2( speciality.isIS_MAIN_COURSE());
 			}
 			
 			
