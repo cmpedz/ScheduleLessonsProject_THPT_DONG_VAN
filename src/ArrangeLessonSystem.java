@@ -1,183 +1,138 @@
+import java.util.ArrayList;
 import java.util.TreeMap;
 
-public class ArrangeLessonSystem {
+public class ArrangeLessonSystem { 
 	
-	public static final int CURRENT_LESSONS_HAS_IN_THE_MORNING = 0;
+	public static final int XÃ_HỘI = 0;
 	
-	public static final int CURRENT_LESSONS_HAS_IN_THE_AFTERNOON = 1;
+	public static final int TỰ_NHIÊN = 1;	
 	
-	private TreeMap<String, Integer[]> checkAvailableEmptyLesson = new TreeMap<String, Integer[]>();
-	
-	private TreeMap<String, Pairs<String, Boolean>> isHavingMainCourse = new TreeMap<String, Pairs<String, Boolean>>();
+	private TreeMap<String, Pairs<Group, Integer>[]> quantitiesEachGroup = new TreeMap<String, Pairs<Group,Integer>[]>();
 	
 	private TreeMap<String, String[]> scheduleTable;
 	
 	private ISchoolInformations iSchoolInformations = SchoolInformations.getInstance();
 	
+	public static final int INDEX_EMPTY_LESSON_AND_TEACHER_IS_FREE = 0;
+	
+	public static final int INDEX_MAIN_COURSE_CONDITION = 1;
+	
+	public static final int MAX_CONDITIONS = 2;
+	
+	private ArrangeLessonCondition[] conditions;
+	
 	public ArrangeLessonSystem(TreeMap<String, String[]> ScheduleTable) {
 		
-		for(String className : iSchoolInformations.getClassesNameList()) {
+		this.scheduleTable = ScheduleTable;
 		
-			
-			checkAvailableEmptyLesson.put(className, new Integer[2]);
+		conditions = new ArrangeLessonCondition[MAX_CONDITIONS];
 		
-			checkAvailableEmptyLesson.get(className)[CURRENT_LESSONS_HAS_IN_THE_MORNING] = 0;
-		
-			checkAvailableEmptyLesson.get(className)[CURRENT_LESSONS_HAS_IN_THE_AFTERNOON] = 0;
-			
-			this.scheduleTable = ScheduleTable;
-			
-			isHavingMainCourse.put(className, new Pairs("",false));
-		}
-	}
-	
-	private int checkCapabilityOfAddClass(int quantitiesLessonsCurrentlyHas, int maxLessonHas, SchoolClass _class
-			, String teacherName, boolean isMorning) {
-		
-		
-		boolean isHavingEmptyLesson = quantitiesLessonsCurrentlyHas < maxLessonHas;
-		
-		if(isHavingEmptyLesson) {
-			
-			int count = 0;
-			
-			int indexLesson = 0;
-			
-			if(!isMorning) {
-				indexLesson += SchoolInformations.MAX_LESSONS_IN_MORNING;
-			}
-			
-			boolean canAddLesson = false;
-	
-			
-			do {
-				
-				canAddLesson = scheduleTable.get(_class.getName())[indexLesson].equals("no one") &&
-						checkIsTeacherTeachingAnotherClass(indexLesson, teacherName, _class.getSpeciality().getName())
-						&& checkCanAddIfLessonIsMainCourse(_class);
-				
-				
-				count++;
-				indexLesson++;
-				
-			} while (!canAddLesson && count < maxLessonHas);
-			
-			if(canAddLesson) {
-			   return indexLesson - 1;
-			}
-			
-			return -1;
-			
-		}
-		
-		
-		return -1;
-		
-		
-	}
-	
-	public boolean checkCanAddIfLessonIsMainCourse(SchoolClass _class) {
-		
-		Pairs<String, Boolean> currentClassInfors = isHavingMainCourse.get(_class.getName());
-		
-		boolean isCurrentClassHavingMainCourse = currentClassInfors.getValue2();
-		
-		System.out.println("check main course needs adding : " + _class.getSpeciality().getName() + ", current main course we Have :" + currentClassInfors.getValue1());
-		
-		boolean isCourseAddedDistinctFromCurrentMainCourse = !_class.getSpeciality().getName().equals(currentClassInfors.getValue1());
-		
-		if(isCurrentClassHavingMainCourse && _class.getSpeciality().isIS_MAIN_COURSE() &&
-				isCourseAddedDistinctFromCurrentMainCourse) {
-			return false;
-		}
-		
-		return true;
-	}
-	
-	public boolean checkIsTeacherTeachingAnotherClass(int indexLessonNeedAdding, String teacherName, String specialityName) {
-		
-		if(indexLessonNeedAdding >= SchoolInformations.MAX_LESSONS_IN_MORNING + SchoolInformations.MAX_LESSONS_IN_AFTERNOON) {
-			return false;
-		}
+		addingConditionsForArrangeSystem();
 		
 		for(String className : iSchoolInformations.getClassesNameList()) {
 			
-			boolean isThisTeacherTeachingAnotherClass = 
-					scheduleTable.get(className)[indexLessonNeedAdding]
-							.equals(FormatDisplayAndExchangeData.getLessonDisplayFormat(teacherName, specialityName));
-			
-			if(isThisTeacherTeachingAnotherClass) {
-				return false;
+			for(ArrangeLessonCondition condition : conditions) {
+				condition.constructDataForEachClass(className);
 			}
-			
-		}
 		
-		return true;
+			quantitiesEachGroup.put(className, new Pairs[2]);
+			
+			quantitiesEachGroup.get(className)[XÃ_HỘI] = new Pairs<Group, Integer>(Group.TỔ_XÃ_HỘI, 0);
+			
+			quantitiesEachGroup.get(className)[TỰ_NHIÊN] = new Pairs<Group, Integer>(Group.TỔ_TỰ_NHIÊN, 0);
+		}
+	}
+	
+	
+	
+	private void addingConditionsForArrangeSystem() {
+		// TODO Auto-generated method stub
+		conditions[INDEX_MAIN_COURSE_CONDITION] = new CheckCanBeAddingdIfClassIsHavingMainCourseCondition();
+		
+		conditions[INDEX_EMPTY_LESSON_AND_TEACHER_IS_FREE] = new TeacherIsFreeAndClassIsHavingEmptyLessonCondition(scheduleTable);
+			
 	}
 
-	
-	
+
+
 	public void addLesson(SchoolClass _class, Teacher teacher) {
 		
-		int quantitiesLessonsCurrentlyHas = 0;
+		boolean canAddClass = true;
 		
 		boolean isInMorning = _class.getSpeciality().isInMorning();
 		
-		int maxLessonHas = 0;
-		
-		String teacherName = teacher.getName();
-		
-		if(isInMorning) {
+		for(ArrangeLessonCondition conditions : conditions) {
 			
-			quantitiesLessonsCurrentlyHas = 
-					checkAvailableEmptyLesson.get(_class.getName())[CURRENT_LESSONS_HAS_IN_THE_MORNING];
+			conditions.set_class(_class);
 			
+			conditions.setTeacher(teacher);
 			
-			maxLessonHas = SchoolInformations.MAX_LESSONS_IN_MORNING;
-			
-			
-		} else {
+			if(!conditions.checkIsMeetingCondition()) {
+				canAddClass = false;
+				break;
+			}
 			
 			
-			quantitiesLessonsCurrentlyHas = 
-					checkAvailableEmptyLesson.get(_class.getName())[CURRENT_LESSONS_HAS_IN_THE_AFTERNOON];
-			
-			maxLessonHas = SchoolInformations.MAX_LESSONS_IN_AFTERNOON;
 		}
 		
+		TeacherIsFreeAndClassIsHavingEmptyLessonCondition basicCondition = 
+				(TeacherIsFreeAndClassIsHavingEmptyLessonCondition)conditions[INDEX_EMPTY_LESSON_AND_TEACHER_IS_FREE];
 		
-		int indexNeedAdd = checkCapabilityOfAddClass(quantitiesLessonsCurrentlyHas, maxLessonHas, 
-				_class, teacherName, isInMorning);
+		int indexNeedAdd = -1;
+		
+		if(basicCondition != null) {
+			indexNeedAdd = basicCondition.getIndexLessonNeedingAdding();
+		}
 	
-		if(indexNeedAdd != -1) {
+		if(canAddClass) {
 			
 			String className = _class.getName();
 			
 			Speciality speciality = _class.getSpeciality();
 			
 			scheduleTable.get(className)[indexNeedAdd] = 
-					FormatDisplayAndExchangeData.getLessonDisplayFormat(teacherName, speciality.getName());
+					FormatDisplayAndExchangeData.getLessonDisplayFormat(teacher.getName(), speciality.getName());
 			
 			_class.setRemainingLessonPerWeek(_class.getRemainingLessonPerWeek() - 1);
 			
-			if(isInMorning) {
-				checkAvailableEmptyLesson.get(className)[CURRENT_LESSONS_HAS_IN_THE_MORNING]++;
-			} else {
-				checkAvailableEmptyLesson.get(className)[CURRENT_LESSONS_HAS_IN_THE_AFTERNOON]++;
-			}
+			increaseCurrentQuantitieLessons(isInMorning, className);
 			
-			if(!isHavingMainCourse.get(className).getValue2()) {
-				
-				isHavingMainCourse.get(className).setValue1( speciality.getName());
-				
-				isHavingMainCourse.get(className).setValue2( speciality.isIS_MAIN_COURSE());
-			}
-			
+			saveMainCourseName(className, speciality);
 			
 		}
 		
 		
 		
+	}
+	
+	private void increaseCurrentQuantitieLessons(boolean isInMorning, String className) {
+		
+		TeacherIsFreeAndClassIsHavingEmptyLessonCondition condition1 = (TeacherIsFreeAndClassIsHavingEmptyLessonCondition)conditions[INDEX_EMPTY_LESSON_AND_TEACHER_IS_FREE];
+		
+		Integer[] currentLessonQuantities = condition1.getCheckAvailableEmptyLesson().get(className);
+		
+		
+		//increase current quantities lesson
+		if(isInMorning) {
+			currentLessonQuantities[TeacherIsFreeAndClassIsHavingEmptyLessonCondition.CURRENT_LESSONS_HAS_IN_THE_MORNING]++;
+		} else {
+			currentLessonQuantities[TeacherIsFreeAndClassIsHavingEmptyLessonCondition.CURRENT_LESSONS_HAS_IN_THE_AFTERNOON]++;
+		}
+	}
+	
+	private void saveMainCourseName(String className, Speciality speciality) {
+		
+		CheckCanBeAddingdIfClassIsHavingMainCourseCondition condition0 = (CheckCanBeAddingdIfClassIsHavingMainCourseCondition)conditions[INDEX_MAIN_COURSE_CONDITION];
+		
+		TreeMap<String, Pairs<String, Boolean>> isHavingMainCourse = condition0.getIsHavingMainCourse();
+		
+		
+		if(!isHavingMainCourse.get(className).getValue2()) {
+			
+			isHavingMainCourse.get(className).setValue1( speciality.getName());
+			
+			isHavingMainCourse.get(className).setValue2( speciality.isIS_MAIN_COURSE());
+		}
 	}
 	
 }
