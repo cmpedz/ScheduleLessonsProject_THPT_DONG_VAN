@@ -76,6 +76,11 @@ public class SchoolInformations implements ISchoolInformations{
 		COURSE_LIST.add(new Speciality("Toán", 2, true, true, Group.TỔ_TỰ_NHIÊN));
 		ESpeciality.Toán.setIndex(18);
 		
+		COURSE_LIST.add(new Speciality("GDCD", 1, true, false, Group.TỔ_XÃ_HỘI));
+		ESpeciality.GDCD.setIndex(19);
+		
+		COURSE_LIST.add(new Speciality("Sử", 1, true, false, Group.TỔ_XÃ_HỘI));
+		ESpeciality.Sử.setIndex(20);
 		
 		
 		//construct data for groups

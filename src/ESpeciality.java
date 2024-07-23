@@ -18,6 +18,8 @@ public enum ESpeciality {
 	 CD_Địa,
 	 GDĐP,
 	 Toán,
+	 GDCD,
+	 Sử,
 	 HĐTN;
 	
 	 private int index;

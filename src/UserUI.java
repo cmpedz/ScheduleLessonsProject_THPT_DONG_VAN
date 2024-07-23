@@ -13,6 +13,15 @@ public class UserUI {
 		
 		ArrayList<SchoolClass> classesTeached1 = new ArrayList<SchoolClass>();
 		
+		classesTeached1.add(new SchoolClass("10A1", 3, 315, iSchoolInformations.getCoursesList().get(ESpeciality.Toán.getIndex()
+				)));
+		
+		classesTeached1.add(new SchoolClass("10A1", 3, 315, iSchoolInformations.getCoursesList().get(ESpeciality.Lý.getIndex()
+				)));
+		
+		classesTeached1.add(new SchoolClass("10A1", 3, 315, iSchoolInformations.getCoursesList().get(ESpeciality.Hóa.getIndex()
+				)));
+		
 		classesTeached1.add(new SchoolClass("11B1", 3, 315, iSchoolInformations.getCoursesList().get(ESpeciality.Văn.getIndex()
 				)));
 		
@@ -37,6 +46,15 @@ public class UserUI {
 		
 		ArrayList<SchoolClass> classesTeached2 = new ArrayList<SchoolClass>();
 		
+		classesTeached2.add(new SchoolClass("10A1", 3, 315, iSchoolInformations.getCoursesList().get(ESpeciality.Địa.getIndex()
+				)));
+		
+		classesTeached2.add(new SchoolClass("10A1", 3, 315, iSchoolInformations.getCoursesList().get(ESpeciality.GDCD.getIndex()
+				)));
+		
+		classesTeached2.add(new SchoolClass("10A1", 3, 315, iSchoolInformations.getCoursesList().get(ESpeciality.Sử.getIndex()
+				)));
+		
 		classesTeached2.add(new SchoolClass("11B2", 3, 485, iSchoolInformations.getCoursesList().get(ESpeciality.Anh.getIndex())
 				));
 		
@@ -51,6 +69,25 @@ public class UserUI {
 		
 		classesTeached2.add(new SchoolClass("10A6", 3, 485, iSchoolInformations.getCoursesList().get(ESpeciality.Anh.getIndex())
 				));
+		
+//////////////////////
+		
+ArrayList<SchoolClass> classesTeached3 = new ArrayList<SchoolClass>();
+
+classesTeached2.add(new SchoolClass("11B2", 3, 485, iSchoolInformations.getCoursesList().get(ESpeciality.Anh.getIndex())
+	));
+
+classesTeached2.add(new SchoolClass("11B1", 3, 485, iSchoolInformations.getCoursesList().get(ESpeciality.Anh.getIndex())
+	));
+
+classesTeached2.add(new SchoolClass("10A4", 3, 485, iSchoolInformations.getCoursesList().get(ESpeciality.Anh.getIndex())
+	));
+
+classesTeached2.add(new SchoolClass("10A5", 3, 485, iSchoolInformations.getCoursesList().get(ESpeciality.Anh.getIndex())
+	));
+
+classesTeached2.add(new SchoolClass("10A6", 3, 485, iSchoolInformations.getCoursesList().get(ESpeciality.Anh.getIndex())
+	));
 		
 		
 		

@@ -5,6 +5,13 @@ public class FormatDisplayAndExchangeData {
 		return teacherName + "-" + specialityName;
 	}
 	
+	public static String separateTeacherNameInALessonDisplayFormat(String formatString) {
+		
+		String teacherName = formatString.split("-")[0];
+		
+		return teacherName.trim();
+	}
+	
 	public static String exchangeNumberIntoDay(int i) {
 		switch(i) {
 			case 0 :

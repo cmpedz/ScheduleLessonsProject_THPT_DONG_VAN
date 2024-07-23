@@ -99,9 +99,12 @@ public class TeacherIsFreeAndClassIsHavingEmptyLessonCondition extends ArrangeLe
 		
 		for(String className : iSchoolInformations.getClassesNameList()) {
 			
-			boolean isThisTeacherTeachingAnotherClass = 
-					scheduleTable.get(className)[indexLessonNeedAdding]
-							.equals(FormatDisplayAndExchangeData.getLessonDisplayFormat(teacherName, specialityName));
+			String currentTeacherName = FormatDisplayAndExchangeData.
+					separateTeacherNameInALessonDisplayFormat(scheduleTable.get(className)[indexLessonNeedAdding]);
+			
+			String teacherNameNeedAdding = teacherName.trim();
+			
+			boolean isThisTeacherTeachingAnotherClass = currentTeacherName.equals(teacherNameNeedAdding);
 			
 			if(isThisTeacherTeachingAnotherClass) {
 				return false;
