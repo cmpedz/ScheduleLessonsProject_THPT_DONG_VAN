@@ -49,11 +49,6 @@ public class UserUI {
 		classesTeached2.add(new SchoolClass("10A1", 3, 315, iSchoolInformations.getCoursesList().get(ESpeciality.Địa.getIndex()
 				)));
 		
-		classesTeached2.add(new SchoolClass("10A1", 3, 315, iSchoolInformations.getCoursesList().get(ESpeciality.GDCD.getIndex()
-				)));
-		
-		classesTeached2.add(new SchoolClass("10A1", 3, 315, iSchoolInformations.getCoursesList().get(ESpeciality.Sử.getIndex()
-				)));
 		
 		classesTeached2.add(new SchoolClass("11B2", 3, 485, iSchoolInformations.getCoursesList().get(ESpeciality.Anh.getIndex())
 				));

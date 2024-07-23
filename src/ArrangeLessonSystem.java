@@ -11,7 +11,9 @@ public class ArrangeLessonSystem {
 	
 	public static final int INDEX_MAIN_COURSE_CONDITION = 1;
 	
-	public static final int MAX_CONDITIONS = 2;
+	public static final int INDEX_DiSTRIBUTION_GROUPS_CONDITION = 2;
+	
+	public static final int MAX_CONDITIONS = 3;
 	
 	private ArrangeLessonCondition[] conditions;
 	
@@ -39,6 +41,8 @@ public class ArrangeLessonSystem {
 		conditions[INDEX_MAIN_COURSE_CONDITION] = new CheckCanBeAddingdIfClassIsHavingMainCourseCondition();
 		
 		conditions[INDEX_EMPTY_LESSON_AND_TEACHER_IS_FREE] = new TeacherIsFreeAndClassIsHavingEmptyLessonCondition(scheduleTable);
+		
+		conditions[INDEX_DiSTRIBUTION_GROUPS_CONDITION] = new DistributingGroupsEqually();
 			
 	}
 
