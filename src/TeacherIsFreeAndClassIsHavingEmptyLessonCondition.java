@@ -129,6 +129,25 @@ public class TeacherIsFreeAndClassIsHavingEmptyLessonCondition extends ArrangeLe
 	
 		checkAvailableEmptyLesson.get(className)[CURRENT_LESSONS_HAS_IN_THE_AFTERNOON] = 0;
 	}	
+	
+
+
+	@Override
+	public void changeDataAfterAddingNewLesson() {
+		// increase current quantities lesson
+		String className = _class.getName();
+		
+		boolean isInMorning = _class.getSpeciality().isInMorning();
+		
+		Integer[] currentLessonQuantities = getCheckAvailableEmptyLesson().get(className);
+		
+		if(isInMorning) {
+			currentLessonQuantities[TeacherIsFreeAndClassIsHavingEmptyLessonCondition.CURRENT_LESSONS_HAS_IN_THE_MORNING]++;
+		} else {
+			currentLessonQuantities[TeacherIsFreeAndClassIsHavingEmptyLessonCondition.CURRENT_LESSONS_HAS_IN_THE_AFTERNOON]++;
+		}
+		
+	}
 
 
 }

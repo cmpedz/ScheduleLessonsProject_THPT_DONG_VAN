@@ -8,6 +8,8 @@ public abstract class ArrangeLessonCondition{
 	
 	public abstract void constructDataForEachClass(String className);
 	
+	public abstract void changeDataAfterAddingNewLesson();
+	
 	public void set_class(SchoolClass _class) {
 		this._class = _class;
 	}

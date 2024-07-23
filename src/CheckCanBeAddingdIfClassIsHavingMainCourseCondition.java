@@ -32,5 +32,23 @@ public class CheckCanBeAddingdIfClassIsHavingMainCourseCondition extends Arrange
 		this.isHavingMainCourse.put(className , new Pairs<String, Boolean>("",false));
 	}
 	
+	@Override
+	public void changeDataAfterAddingNewLesson() {
+		// specify that current lesson has main course
+		String className = _class.getName();
+		
+		Speciality speciality = _class.getSpeciality();
+		
+		TreeMap<String, Pairs<String, Boolean>> isHavingMainCourse = getIsHavingMainCourse();
+		
+		if(!isHavingMainCourse.get(className).getValue2()) {
+			
+			isHavingMainCourse.get(className).setValue1( speciality.getName());
+			
+			isHavingMainCourse.get(className).setValue2( speciality.isIS_MAIN_COURSE());
+		}
+	}
+	
+	
 
 }
