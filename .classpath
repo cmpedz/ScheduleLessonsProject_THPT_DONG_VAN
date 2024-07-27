@@ -6,5 +6,16 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="D:/Apache POI/poi-bin-5.2.3/poi-ooxml-5.2.3.jar"/>
+	<classpathentry kind="lib" path="D:/Apache POI/poi-bin-5.2.3/poi-ooxml-full-5.2.3.jar"/>
+	<classpathentry kind="lib" path="D:/Apache POI/poi-bin-5.2.3/poi-5.2.3.jar"/>
+	<classpathentry kind="lib" path="D:/Apache POI/poi-bin-5.2.3/ooxml-lib/commons-compress-1.21.jar"/>
+	<classpathentry kind="lib" path="D:/Apache POI/poi-bin-5.2.3/ooxml-lib/curvesapi-1.07.jar"/>
+	<classpathentry kind="lib" path="D:/Apache POI/poi-bin-5.2.3/ooxml-lib/xmlbeans-5.1.1.jar"/>
+	<classpathentry kind="lib" path="D:/Apache POI/poi-bin-5.2.3/lib/commons-collections4-4.4.jar"/>
+	<classpathentry kind="lib" path="D:/Apache POI/poi-bin-5.2.3/auxiliary/xml-apis-1.4.01.jar"/>
+	<classpathentry kind="lib" path="D:/Apache POI/poi-bin-5.2.3/lib/commons-io-2.11.0.jar"/>
+	<classpathentry kind="lib" path="D:/Apache POI/log4j-api-2.23.1.jar"/>
+	<classpathentry kind="lib" path="D:/Apache POI/log4j-core-2.23.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
