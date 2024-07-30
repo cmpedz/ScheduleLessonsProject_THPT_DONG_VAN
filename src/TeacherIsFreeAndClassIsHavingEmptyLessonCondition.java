@@ -30,7 +30,7 @@ public class TeacherIsFreeAndClassIsHavingEmptyLessonCondition extends ArrangeLe
 		
 		int maxLessonHas = 0;
 		
-		String teacherName = teacher.getName();
+		String teacherName = teacher.getNAME();
 		
 		if(isInMorning) {
 			

@@ -1,12 +1,14 @@
+import java.util.ArrayList;
 import java.util.TreeMap;
 
+
 public class DistributingGroupsEqually extends ArrangeLessonCondition{
+
 	
-	public static final int XÃ_HỘI = 0;	
+	private TreeMap<String, Pairs<String, Integer>[]> quantitiesEachGroup = new TreeMap<String, Pairs<String,Integer>[]>();
 	
-	public static final int TỰ_NHIÊN = 1;	
 	
-	private TreeMap<String, Pairs<Group, Integer>[]> quantitiesEachGroup = new TreeMap<String, Pairs<Group,Integer>[]>();
+	public ArrayList<String> currentGroups = SchoolInformations.getInstance().getGroupsList();
 	
 
 	@Override
@@ -15,29 +17,27 @@ public class DistributingGroupsEqually extends ArrangeLessonCondition{
 		String className = this._class.getName();
 		
 		Speciality lessonNeedAdding = this._class.getSpeciality();
-		
-		int quantities_XÃ_HỘI_Lessons_Has = quantitiesEachGroup.get(className)[XÃ_HỘI].getValue2();
-		
-		int quantities_TỰ_NHIÊN_Lessons_Has = quantitiesEachGroup.get(className)[TỰ_NHIÊN].getValue2();
-		
-		int quantitiesLessonHaveGroupSimilarToLessonNeedAdding = 0;
+	
+		int quasLessonHasGroSameGroOfLessonNeedAdding = 0;
 		
 		int quantitiesRemainLesson = 0;
 		
-		if(lessonNeedAdding.getGROUP().equals(Group.TỔ_TỰ_NHIÊN)) {
+		
+		for(int i = 0; i < currentGroups.size(); i++) {
 			
-			quantitiesLessonHaveGroupSimilarToLessonNeedAdding = quantities_TỰ_NHIÊN_Lessons_Has;
+			if(lessonNeedAdding.getGROUP().equals(currentGroups.get(i))) {
+				
+				quasLessonHasGroSameGroOfLessonNeedAdding = quantitiesEachGroup.get(className)[i].getValue2();
+				
+			} else {
+				
+				quantitiesRemainLesson += 
+						quantitiesEachGroup.get(className)[i].getValue2();
+			}
 			
-			quantitiesRemainLesson = quantities_XÃ_HỘI_Lessons_Has;
-			
-		} else {
-			
-			quantitiesLessonHaveGroupSimilarToLessonNeedAdding = quantities_XÃ_HỘI_Lessons_Has;
-			
-			quantitiesRemainLesson = quantities_TỰ_NHIÊN_Lessons_Has;
 		}
 		
-		if(quantitiesLessonHaveGroupSimilarToLessonNeedAdding >= 2 && quantitiesRemainLesson < 2) {
+		if(quasLessonHasGroSameGroOfLessonNeedAdding >= 2 && quantitiesRemainLesson < 2) {
 			return false;
 		}
 		
@@ -48,16 +48,18 @@ public class DistributingGroupsEqually extends ArrangeLessonCondition{
 	@Override
 	public void constructDataForEachClass(String className) {
 		// TODO Auto-generated method stub
-		quantitiesEachGroup.put(className, new Pairs[2]);
 		
-		quantitiesEachGroup.get(className)[XÃ_HỘI] = new Pairs<Group, Integer>(Group.TỔ_XÃ_HỘI, 0);
+		int groupSize = this.currentGroups.size();
 		
-		quantitiesEachGroup.get(className)[TỰ_NHIÊN] = new Pairs<Group, Integer>(Group.TỔ_TỰ_NHIÊN, 0);
-	
+		quantitiesEachGroup.put(className, new Pairs[groupSize]);
+		
+		for(int i = 0; i < groupSize; i++) {
+			quantitiesEachGroup.get(className)[i] = new Pairs<String, Integer>(this.currentGroups.get(i),0);
+		}
 		
 	}
 
-	public TreeMap<String, Pairs<Group, Integer>[]> getQuantitiesEachGroup() {
+	public TreeMap<String, Pairs<String, Integer>[]> getQuantitiesEachGroup() {
 		return quantitiesEachGroup;
 	}
 
@@ -66,23 +68,27 @@ public class DistributingGroupsEqually extends ArrangeLessonCondition{
 		// TODO Auto-generated method stub
 		String className = _class.getName();
 		
-		Group groupOfLessonAdded = _class.getSpeciality().getGROUP();
+		String groupOfLessonAdded = _class.getSpeciality().getGROUP();
 		
-		int indexGroupOfLessonAdded = -1;
-		
-		if(groupOfLessonAdded.equals(Group.TỔ_TỰ_NHIÊN)) {
+		for(int i =0; i < this.currentGroups.size(); i++) {
 			
-			indexGroupOfLessonAdded = TỰ_NHIÊN;
-					
-		}else {
-			indexGroupOfLessonAdded = XÃ_HỘI;
+			if( groupOfLessonAdded.equals(currentGroups.get(i)) ) {
+				
+				Pairs<String, Integer> currentGroupData = quantitiesEachGroup.get(className)[i];
+				
+				int quantitiesCurrentGroupHas = currentGroupData.getValue2();
+				
+				currentGroupData.setValue2(quantitiesCurrentGroupHas + 1);
+						
+				break;
+			}
+			
 		}
 		
-		Pairs<Group, Integer> quantitesEachGroupData = quantitiesEachGroup.get(className)[indexGroupOfLessonAdded];
-		
-		quantitesEachGroupData.setValue2(quantitesEachGroupData.getValue2() + 1);
+	
 		
 	}
+	
 	
 	
 

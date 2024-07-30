@@ -1,7 +1,7 @@
 
 public class SchoolClass {
 	
-	private String name;
+	private final String NAME;
 	
 	private final int lessonsPerWeek;
 	
@@ -15,7 +15,7 @@ public class SchoolClass {
 
 	public SchoolClass(String name, int lessonsPerWeek, int lessonPerYear, Speciality speciality) {
 		super();
-		this.name = name;
+		this.NAME = name;
 		this.lessonsPerWeek = lessonsPerWeek;
 		this.lessonPerYear = lessonPerYear;
 		this.speciality = speciality;
@@ -24,11 +24,7 @@ public class SchoolClass {
 	}
 
 	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+		return NAME;
 	}
 
 	public int getLessonsPerWeek() {

@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 import java.util.TreeMap;
 
 public class ArrangeLessonSystem { 
@@ -52,7 +52,6 @@ public class ArrangeLessonSystem {
 		
 		boolean canAddClass = true;
 		
-		boolean isInMorning = _class.getSpeciality().isInMorning();
 		
 		for(ArrangeLessonCondition conditions : conditions) {
 			
@@ -84,7 +83,7 @@ public class ArrangeLessonSystem {
 			Speciality speciality = _class.getSpeciality();
 			
 			scheduleTable.get(className)[indexNeedAdd] = 
-					FormatDisplayAndExchangeData.getLessonDisplayFormat(teacher.getName(), speciality.getName());
+					FormatDisplayAndExchangeData.getLessonDisplayFormat(teacher.getNAME(), speciality.getName());
 			
 			_class.setRemainingLessonPerWeek(_class.getRemainingLessonPerWeek() - 1);
 			

@@ -10,6 +10,8 @@ public class ScheduleEachWeek {
 	
 	private RemoveTeacherWhoHasEnoughLessonsSystem removeTeacherSystem = new RemoveTeacherWhoHasEnoughLessonsSystem();
 	
+	private SchoolInformations schInformations = SchoolInformations.getInstance();
+	
 	public ScheduleEachWeek() {
 		super();
 		
@@ -24,7 +26,7 @@ public class ScheduleEachWeek {
 		
 		for(ScheduleEachDay s : scheduleEachDays) {
 			System.out.println();
-			System.out.println("===================================" + FormatDisplayAndExchangeData.exchangeNumberIntoDay(index) + "======================================");
+			System.out.println("===================================" + index + "======================================");
 			System.out.println();
 			s.print();
 			System.out.println();
@@ -42,7 +44,9 @@ public class ScheduleEachWeek {
 			
 			for(int i=0; i < teachers.size(); i++) {
 				
-				boolean isDayOff = teachers.get(i).getDayOff().toString().equals(FormatDisplayAndExchangeData.exchangeNumberIntoDay(index));
+				String currentDay = schInformations.getDayWorkingList().get(index);
+				
+				boolean isDayOff = teachers.get(i).getDayOff().toString().equals(currentDay);
 				
 				if(!isDayOff) {
 					s.addTeacherLessonIntoScheduleTable(teachers.get(i));

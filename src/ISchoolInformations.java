@@ -4,7 +4,9 @@ public interface ISchoolInformations {
 
 	public ArrayList<Speciality> getCoursesList();
 	
-	public ArrayList<Group> getGroupsList();
+	public ArrayList<String> getGroupsList();
 	
 	public ArrayList<String> getClassesNameList();
+	
+	public ArrayList<String> getDayWorkingList();
 }

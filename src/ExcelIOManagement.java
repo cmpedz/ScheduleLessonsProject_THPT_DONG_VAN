@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -20,18 +21,6 @@ public class ExcelIOManagement {
 	private static final String OUTPUT_SHEET_NAME = "output";
 	
 	private static final String EXCEL_DATA_PATH = "src/excel_resources/excel_data.xlsx";
-	
-	public static final String TEACHER_TABLE = "Giáo Viên";
-	
-	public static final String CLASS_TABLE = "Lớp";
-	
-	public static final String SPECIALITY_TABLE = "Môn Học";
-	
-	public static final String GROUP_TABLE = "Tổ";
-	
-	public static final String DAYS_TABLE = "Ngày Làm Việc";
-	
-	public static final String OTHERS_TABLE = "Khác";
 	
 	private FileInputStream input_file = null;
 	
@@ -82,16 +71,9 @@ public class ExcelIOManagement {
 	public void print() {
 		Sheet sheet = this.work_book.getSheet(INPUT_SHEET_NAME);
 		
-		for(Row row : sheet) {
-			
-			boolean isStartedTable = false;
-			
-			Cell headerTable = row.getCell(0); 
-			
-			if( headerTable != null) {
-				System.out.println(headerTable.getStringCellValue());
-			}
-		}
+		ExcelDataInputManangement.getInstance().insertDataFromExcel(sheet);
+		
+		ExcelDataInputManangement.getInstance().print();
 	}
 	
 	

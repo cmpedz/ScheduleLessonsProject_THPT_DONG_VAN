@@ -2,47 +2,72 @@ import java.util.ArrayList;
 
 public class Teacher {
 	
-	private String name;
+	private final String NAME;
 		
-	private Group group;
+	private final String  GROUP;
 	
-	private DayOff dayOff;
+	private String dayOff;
+	
+	private int lessonAvoidTeaching;
 	
 	private ArrayList<SchoolClass> classesTeaching = new ArrayList<SchoolClass>();
 	
 
 
-	public Teacher(String name, Group group, DayOff dayOff, ArrayList<SchoolClass> classesTeaching) {
+	public Teacher(String name, String group, String dayOff, ArrayList<SchoolClass> classesTeaching,
+			int lessonAvoidTeaching) {
 		super();
-		this.name = name;
-		this.group = group;
+		this.NAME = name;
+		this.GROUP = group;
+		this.lessonAvoidTeaching = lessonAvoidTeaching;
 		this.dayOff = dayOff;
 		this.classesTeaching = classesTeaching;
 	}
 
-	public String getName() {
-		return name;
-	}
+	
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
-	public Group getGroup() {
-		return group;
-	}
-
-	public void setGroup(Group group) {
-		this.group = group;
-	}
-
-	public DayOff getDayOff() {
+	public String getDayOff() {
 		return dayOff;
 	}
 
-	public void setDayOff(DayOff dayOff) {
+
+
+
+	public void setDayOff(String dayOff) {
 		this.dayOff = dayOff;
 	}
+
+
+
+
+	public int getLessonAvoidTeaching() {
+		return lessonAvoidTeaching;
+	}
+
+
+
+
+	public void setLessonAvoidTeaching(int lessonAvoidTeaching) {
+		this.lessonAvoidTeaching = lessonAvoidTeaching;
+	}
+
+
+
+
+	public String getNAME() {
+		return NAME;
+	}
+
+
+
+
+	public String getGROUP() {
+		return GROUP;
+	}
+
+
+
 
 	public ArrayList<SchoolClass> getClassesTeaching() {
 		return classesTeaching;
