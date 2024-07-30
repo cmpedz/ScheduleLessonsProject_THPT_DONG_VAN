@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -18,25 +20,23 @@ public class InsertDataFromTeacherTableManager extends InsertDataFromEachTable{
 		
 		String dayOff = row.getCell(6).getStringCellValue();
 		
-		System.out.println("==================================");
+		String group = row.getCell(7).getStringCellValue();
 		
-		System.out.println(teacherName);
+		
+		// define classes taught by this teacher 
+		ArrayList<SchoolClass> classes = new ArrayList<SchoolClass>();
 		
 		for(String className : classesTaught) {
-			System.out.print(className + " ");
+			
+			classes.add(new SchoolClass(className, lessonsPerWeek, lessonsPerYear, specialty));
 		}
 		
-		System.out.println();
 		
-		System.out.println(specialty);
+		//define teacher infos
+		Teacher teacher = new Teacher(teacherName, group, dayOff, classes, 0);
 		
-		System.out.println(lessonsPerWeek);
-		
-		System.out.println(lessonsPerYear);
-		
-		System.out.println(dayOff);
-		
-		System.out.println("==================================");
+		schoolInformations.getCurrentTeacherList().add(teacher);
 	}
+		
 
 }

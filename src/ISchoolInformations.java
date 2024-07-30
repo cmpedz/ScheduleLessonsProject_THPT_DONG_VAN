@@ -1,12 +1,15 @@
 import java.util.ArrayList;
+import java.util.Map;
 
 public interface ISchoolInformations {
 
-	public ArrayList<Speciality> getCoursesList();
+	public Map<String, Speciality> getSpecialtyList();
 	
 	public ArrayList<String> getGroupsList();
 	
 	public ArrayList<String> getClassesNameList();
 	
 	public ArrayList<String> getDayWorkingList();
+	
+	public ArrayList<Teacher> getCurrentTeacherList();
 }

@@ -9,16 +9,16 @@ public class SchoolClass {
 	
 	private final int lessonPerYear;
 	
-	private Speciality speciality;
+	private String specialityName;
 	
 	
 
-	public SchoolClass(String name, int lessonsPerWeek, int lessonPerYear, Speciality speciality) {
+	public SchoolClass(String name, int lessonsPerWeek, int lessonPerYear, String speciality) {
 		super();
 		this.NAME = name;
 		this.lessonsPerWeek = lessonsPerWeek;
 		this.lessonPerYear = lessonPerYear;
-		this.speciality = speciality;
+		this.specialityName = speciality;
 		this.remainingLessonPerWeek = lessonsPerWeek;
 		
 	}
@@ -37,11 +37,11 @@ public class SchoolClass {
 	}
 
 	public Speciality getSpeciality() {
-		return speciality;
+		return SchoolInformations.getInstance().getSpecialtyList().get(specialityName);
 	}
 
-	public void setSpeciality(Speciality speciality) {
-		this.speciality = speciality;
+	public void setSpecialityName(String specialityName) {
+		this.specialityName = specialityName;
 	}
 
 	public int getRemainingLessonPerWeek() {

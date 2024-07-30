@@ -80,7 +80,7 @@ public class ArrangeLessonSystem {
 			
 			String className = _class.getName();
 			
-			Speciality speciality = _class.getSpeciality();
+			Speciality speciality =  _class.getSpeciality();
 			
 			scheduleTable.get(className)[indexNeedAdd] = 
 					FormatDisplayAndExchangeData.getLessonDisplayFormat(teacher.getNAME(), speciality.getName());

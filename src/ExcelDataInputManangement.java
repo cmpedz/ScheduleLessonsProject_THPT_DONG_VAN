@@ -89,9 +89,34 @@ public class ExcelDataInputManangement {
 	
 	public void print() {
 		
-		System.out.println(dataInsertController.get(TEACHER_TABLE).firstRowTable);
-		
-		System.out.println(dataInsertController.get(TEACHER_TABLE).endRowTable);
+		for(Teacher teacher : SchoolInformations.getInstance().getCurrentTeacherList()) {
+			System.out.println("teacher infos : ");
+			System.out.println("Name : " + teacher.getNAME());
+			System.out.println("Group : " + teacher.getGROUP());
+			System.out.println("Day Off : " + teacher.getDayOff());
+			System.out.println("lesson avoid teaching : " + teacher.getLessonAvoidTeaching());
+			
+			System.out.println("class taught currently :");
+			
+			for(SchoolClass currentClass : teacher.getClassesTeaching()) {
+				System.out.println();
+				
+				System.out.println(currentClass.getName());
+				
+				System.out.println(currentClass.getLessonsPerWeek());
+				
+				System.out.println(currentClass.getLessonPerYear());
+			
+				
+//				System.out.println("Specialty Infors :");
+//				System.out.println(currentClass.getSpeciality().getName());
+//				System.out.println(currentClass.getSpeciality().getPriority());
+//				System.out.println(currentClass.getSpeciality().getMaxContinuesLessonCanTeach());
+//				System.out.println(currentClass.getSpeciality().getGROUP());
+//				
+//				System.out.println();
+			}
+		}
 	}
 	
 
