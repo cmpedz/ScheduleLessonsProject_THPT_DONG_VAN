@@ -64,16 +64,11 @@ public class ExcelIOManagement {
 		
 	}
 	
-	public static void main(String[] args) {
-		ExcelIOManagement.getInstance().print();
-	}
-	
-	public void print() {
+	public void insertDataFromExcel() {
 		Sheet sheet = this.work_book.getSheet(INPUT_SHEET_NAME);
 		
 		ExcelDataInputManangement.getInstance().insertDataFromExcel(sheet);
 		
-		ExcelDataInputManangement.getInstance().print();
 	}
 	
 	

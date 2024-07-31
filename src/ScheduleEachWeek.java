@@ -26,12 +26,15 @@ public class ScheduleEachWeek {
 		
 		for(ScheduleEachDay s : scheduleEachDays) {
 			System.out.println();
-			System.out.println("===================================" + index + "======================================");
+			String dayWoking = schInformations.getDayWorkingList().get(index);
+			System.out.println("===================================" + dayWoking + "======================================");
 			System.out.println();
 			s.print();
 			System.out.println();
 			index++;
 		}
+		
+		
 	}
 	
 	public void arrangeLessons() {
@@ -45,6 +48,7 @@ public class ScheduleEachWeek {
 			for(int i=0; i < teachers.size(); i++) {
 				
 				String currentDay = schInformations.getDayWorkingList().get(index);
+				
 				
 				boolean isDayOff = teachers.get(i).getDayOff().toString().equals(currentDay);
 				

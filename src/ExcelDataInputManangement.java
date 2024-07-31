@@ -100,24 +100,6 @@ public class ExcelDataInputManangement {
 			
 		}
 	}
-	
-	public void print() {
 		
-		SchoolInformations sch = SchoolInformations.getInstance();
-		
-		for(String className : sch.getClassesNameList()) {
-			System.out.println(className);
-		}
-		
-		for(String group : sch.getGroupsList()) {
-			System.out.println(group);
-		}
-		
-		for(String dayWorking : sch.getDayWorkingList()) {
-			System.out.println(dayWorking);
-		}
-	}
-	
-
 	
 }
