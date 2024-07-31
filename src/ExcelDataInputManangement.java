@@ -26,6 +26,12 @@ public class ExcelDataInputManangement {
 		dataInsertController.put(TEACHER_TABLE, new InsertDataFromTeacherTableManager());
 		
 		dataInsertController.put(SPECIALITY_TABLE, new InsertDataFromSpecialtyTable());
+		
+		dataInsertController.put(CLASS_TABLE, new InsertDataFromClassTable());
+		
+		dataInsertController.put(GROUP_TABLE, new InsertDataFromGroupTable());
+		
+		dataInsertController.put(DAY_WORKING_TABLE, new InsertDataFromWorkingDaysTable());
 	}
 	
 	
@@ -99,16 +105,16 @@ public class ExcelDataInputManangement {
 		
 		SchoolInformations sch = SchoolInformations.getInstance();
 		
-		for(Teacher teacher : sch.getCurrentTeacherList()) {
-			System.out.println(teacher);
+		for(String className : sch.getClassesNameList()) {
+			System.out.println(className);
 		}
 		
-		System.out.println();
-		System.out.println();
+		for(String group : sch.getGroupsList()) {
+			System.out.println(group);
+		}
 		
-		for(String specialtyName : sch.getSpecialtyList().keySet()) {
-			System.out.println();
-			System.out.println(sch.getSpecialtyList().get(specialtyName));
+		for(String dayWorking : sch.getDayWorkingList()) {
+			System.out.println(dayWorking);
 		}
 	}
 	
