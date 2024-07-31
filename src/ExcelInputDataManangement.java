@@ -6,7 +6,7 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-public class ExcelDataInputManangement {
+public class ExcelInputDataManangement {
 	
 	private Map<String, InsertDataFromEachTable> dataInsertController = new TreeMap<String, InsertDataFromEachTable>(); 
 	
@@ -20,9 +20,9 @@ public class ExcelDataInputManangement {
 	
 	public static final String DAY_WORKING_TABLE = "Ngày Làm Việc";
 	
-	private static ExcelDataInputManangement instance; 
+	private static ExcelInputDataManangement instance; 
 	
-	private ExcelDataInputManangement() {
+	private ExcelInputDataManangement() {
 		dataInsertController.put(TEACHER_TABLE, new InsertDataFromTeacherTableManager());
 		
 		dataInsertController.put(SPECIALITY_TABLE, new InsertDataFromSpecialtyTable());
@@ -35,9 +35,9 @@ public class ExcelDataInputManangement {
 	}
 	
 	
-	public static ExcelDataInputManangement getInstance() {
+	public static ExcelInputDataManangement getInstance() {
 		if(instance == null) {
-			instance = new ExcelDataInputManangement();
+			instance = new ExcelInputDataManangement();
 		}
 		
 		return instance;

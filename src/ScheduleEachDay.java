@@ -5,11 +5,13 @@ import java.util.TreeMap;
 public class ScheduleEachDay {
 	 
 	
-	private TreeMap<String, String[]> scheduleTable = new TreeMap<String, String[]>();
+	private final TreeMap<String, String[]> scheduleTable = new TreeMap<String, String[]>();
 	
 	private ArrangeLessonSystem arrangeLesson;
 	
 	private ISchoolInformations iSchoolInformations = SchoolInformations.getInstance();
+	
+	public static final String DEFINE_EMPTY_VALUE = "";
 	
 	
 	public ScheduleEachDay() {
@@ -21,7 +23,7 @@ public class ScheduleEachDay {
 			scheduleTable.put(className, new String[quantitiesLessonEachDay]);
 			
 			for(int i=0; i<scheduleTable.get(className).length; i++) {
-				scheduleTable.get(className)[i] = "no one";
+				scheduleTable.get(className)[i] = DEFINE_EMPTY_VALUE;
 			}
 		}
 		
@@ -29,6 +31,11 @@ public class ScheduleEachDay {
 	}
 	
 	
+	public TreeMap<String, String[]> getScheduleTable() {
+		return scheduleTable;
+	}
+
+
 	public void print() {
 		 System.out.print("----------");
 		 for(String className : iSchoolInformations.getClassesNameList()) {

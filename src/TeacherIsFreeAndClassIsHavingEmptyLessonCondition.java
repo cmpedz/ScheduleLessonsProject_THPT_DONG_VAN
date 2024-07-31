@@ -69,8 +69,10 @@ public class TeacherIsFreeAndClassIsHavingEmptyLessonCondition extends ArrangeLe
 			
 			do {
 				
-				canAddLesson = scheduleTable.get(_class.getName())[indexLesson].equals("no one") &&
-						checkIsTeacherTeachingAnotherClass(indexLesson, teacherName, _class.getSpeciality().getName());
+				canAddLesson = scheduleTable.get(_class.getName())[indexLesson]
+						.equals(ScheduleEachDay.DEFINE_EMPTY_VALUE) &&
+						checkIsTeacherTeachingAnotherClass(indexLesson, teacherName, _class.getSpeciality()
+								.getName());
 				
 				
 				count++;

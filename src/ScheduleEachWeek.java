@@ -62,6 +62,10 @@ public class ScheduleEachWeek {
 		}
 	}
 	
+	public ScheduleEachDay[] getScheduleEachDays() {
+		return scheduleEachDays;
+	}
+
 	public void addTeacherIntoList(Teacher t) {
 		teachers.add(t);
 	}

@@ -17,6 +17,6 @@ public class UserUI {
 		
 		s.arrangeLessons();
 		
-		s.print();
+		ExcelIOManagement.getInstance().displayAdjustedDataIntoExcel(s);
 	}
 }

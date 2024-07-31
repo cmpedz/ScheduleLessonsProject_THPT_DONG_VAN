@@ -22,8 +22,6 @@ public class ExcelIOManagement {
 	
 	private static final String EXCEL_DATA_PATH = "src/excel_resources/excel_data.xlsx";
 	
-	private FileInputStream input_file = null;
-	
 	private Workbook work_book;
 	
 	private static ExcelIOManagement instance;
@@ -47,19 +45,16 @@ public class ExcelIOManagement {
 			
 			if(inputFile != null) {
 				
-				this.input_file = inputFile;
-				
 				this.work_book = new XSSFWorkbook(inputFile);
 			}
 			
-			
-			
-			System.out.println("intitiate file and work_book successful !");
 			
 		} catch(IOException e) {
 			
 			e.printStackTrace();
 		}
+		
+		
 			
 		
 	}
@@ -67,7 +62,28 @@ public class ExcelIOManagement {
 	public void insertDataFromExcel() {
 		Sheet sheet = this.work_book.getSheet(INPUT_SHEET_NAME);
 		
-		ExcelDataInputManangement.getInstance().insertDataFromExcel(sheet);
+		ExcelInputDataManangement.getInstance().insertDataFromExcel(sheet);
+		
+	}
+	
+	public void displayAdjustedDataIntoExcel(ScheduleEachWeek sch) {
+		
+		Sheet sheet = this.work_book.getSheet(OUTPUT_SHEET_NAME);
+		
+		File excelPath = new File(EXCEL_DATA_PATH);
+		
+		ExcelOutputDataManagement.getInstance()
+		.displayScheduleTableDataIntoExcel(sch, sheet, excelPath);
+		
+		try(FileOutputStream outputFile = new FileOutputStream(EXCEL_DATA_PATH)){
+			
+			this.work_book.write(outputFile);
+			
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 		
 	}
 	
