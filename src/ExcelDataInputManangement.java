@@ -24,6 +24,8 @@ public class ExcelDataInputManangement {
 	
 	private ExcelDataInputManangement() {
 		dataInsertController.put(TEACHER_TABLE, new InsertDataFromTeacherTableManager());
+		
+		dataInsertController.put(SPECIALITY_TABLE, new InsertDataFromSpecialtyTable());
 	}
 	
 	
@@ -62,6 +64,8 @@ public class ExcelDataInputManangement {
 			
 			if(currentRow == null) continue;
 			
+			
+			
 			Cell headerCell = currentRow.getCell(0);
 			
 			if(checkIsNotEmptyCell(headerCell)) {
@@ -74,8 +78,12 @@ public class ExcelDataInputManangement {
 					
 					data.setFirstRowTable(i);
 					
+					
 					do {
 						i++;
+						
+						if(sheet.getRow(i) == null) break;
+						
 					} while(checkIsNotEmptyCell(sheet.getRow(i).getCell(0)));
 					
 					data.setEndRowTable(i - 1);
@@ -89,33 +97,18 @@ public class ExcelDataInputManangement {
 	
 	public void print() {
 		
-		for(Teacher teacher : SchoolInformations.getInstance().getCurrentTeacherList()) {
-			System.out.println("teacher infos : ");
-			System.out.println("Name : " + teacher.getNAME());
-			System.out.println("Group : " + teacher.getGROUP());
-			System.out.println("Day Off : " + teacher.getDayOff());
-			System.out.println("lesson avoid teaching : " + teacher.getLessonAvoidTeaching());
-			
-			System.out.println("class taught currently :");
-			
-			for(SchoolClass currentClass : teacher.getClassesTeaching()) {
-				System.out.println();
-				
-				System.out.println(currentClass.getName());
-				
-				System.out.println(currentClass.getLessonsPerWeek());
-				
-				System.out.println(currentClass.getLessonPerYear());
-			
-				
-//				System.out.println("Specialty Infors :");
-//				System.out.println(currentClass.getSpeciality().getName());
-//				System.out.println(currentClass.getSpeciality().getPriority());
-//				System.out.println(currentClass.getSpeciality().getMaxContinuesLessonCanTeach());
-//				System.out.println(currentClass.getSpeciality().getGROUP());
-//				
-//				System.out.println();
-			}
+		SchoolInformations sch = SchoolInformations.getInstance();
+		
+		for(Teacher teacher : sch.getCurrentTeacherList()) {
+			System.out.println(teacher);
+		}
+		
+		System.out.println();
+		System.out.println();
+		
+		for(String specialtyName : sch.getSpecialtyList().keySet()) {
+			System.out.println();
+			System.out.println(sch.getSpecialtyList().get(specialtyName));
 		}
 	}
 	

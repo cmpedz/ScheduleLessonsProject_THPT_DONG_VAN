@@ -77,8 +77,19 @@ public class Teacher {
 		this.classesTeaching = classesTeaching;
 	}
 	
-	
-	
+	@Override
+	public String toString() {
+		String displayText = "\n" + "Teacher Name: " + NAME + "\n" +
+							 "Group: " + GROUP + "\n" +
+							 "Dayoff: " + dayOff + "\n" +
+							 "Lesson Avoid Teaching: " + lessonAvoidTeaching + "\n" +
+							 "====== Current Classes Taught ======" + "\n" + "\n";
+		for(SchoolClass _class : classesTeaching) {
+			displayText += _class.toString() + "\n";
+		}
+		
+		return displayText;
+	}
 	
 	
 

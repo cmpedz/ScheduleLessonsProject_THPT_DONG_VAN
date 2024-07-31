@@ -56,6 +56,17 @@ public class Speciality {
 	public int getPriority() {
 		return this.PRIORITY;
 	}
+	
+	@Override
+	public String toString() {
+		
+		return "Specialty Name: " + NAME + "\n" +
+			   "Max Lesson Continues: " + MAX_CONTINUES_LESSONS_CAN_TEACH + "\n" +
+			   "Is In Morning: " + IS_IN_MORNING + "\n" +
+			   "Is Main Course: " + IS_MAIN_COURSE + "\n" +
+			   "Group: " + GROUP + "\n" +
+			   "Priority: " + PRIORITY + "\n";
+	}
 
 	
 }

@@ -51,6 +51,15 @@ public class SchoolClass {
 	public void setRemainingLessonPerWeek(int remainingLessonPerWeek) {
 		this.remainingLessonPerWeek = remainingLessonPerWeek;
 	}
+	
+	@Override
+	public String toString() {
+		return  "Class Name: " + NAME + "\n" + 
+				"Lesson Per Week: " + lessonsPerWeek + "\n" +
+				"Lesson Per Year: " + lessonPerYear + "\n" +
+				"Specialty Name: " + specialityName + "\n";
+	}		   
+		
 
 
 }
