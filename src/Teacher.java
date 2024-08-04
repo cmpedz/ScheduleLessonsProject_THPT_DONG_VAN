@@ -13,17 +13,26 @@ public class Teacher {
 	
 	private  TreeMap<String, ArrayList<Integer>>  lessonsExpectedNotTeaching = new TreeMap<String, ArrayList<Integer>>();
 	
-	private ArrayList<SchoolClass> classesTeaching = new ArrayList<SchoolClass>();
+	public static final int MAX_PRIORITY_TYPES = 2;
+	
+	public static final int HIGH_PRIORITY_TYPE = 0;
+	
+	public static final int LOW_PRIORITY_TYPE = 1;
+	
+	private ArrayList<ArrayList<SchoolClass>> classesTeaching = new ArrayList<ArrayList<SchoolClass>>();
 	
 
 
-	public Teacher(String name, String group, String dayOff, ArrayList<SchoolClass> classesTeaching) {
+	public Teacher(String name, String group, String dayOff) {
 		
 		super();
 		this.NAME = name;
 		this.GROUP = group;
 		this.dayOff = dayOff;
-		this.classesTeaching = classesTeaching;
+		
+		for(int i = 0; i< MAX_PRIORITY_TYPES; i++) {
+			classesTeaching.add(new ArrayList<SchoolClass>());
+		}
 		
 		for(String day : SchoolInformations.getInstance().getDayWorkingList()) {
 			
@@ -96,12 +105,16 @@ public class Teacher {
 
 
 
-	public ArrayList<SchoolClass> getClassesTeaching() {
-		return classesTeaching;
+	public ArrayList<SchoolClass> getClassesTeaching(int priority) {
+		
+		return classesTeaching.get(priority);
 	}
 
-	public void setClassesTeaching(ArrayList<SchoolClass> classesTeaching) {
-		this.classesTeaching = classesTeaching;
+	public void addClassTeaching(SchoolClass _class) {
+		
+		int priorityClass = _class.getSpeciality().getPriority() - 1;
+
+		this.classesTeaching.get(priorityClass).add(_class);
 	}
 	
 	@Override
@@ -111,9 +124,6 @@ public class Teacher {
 							 "Dayoff: " + dayOff + "\n" +
 							 "Lesson Avoid Teaching: " + lessonsExpectedNotTeaching + "\n" +
 							 "====== Current Classes Taught ======" + "\n" + "\n";
-		for(SchoolClass _class : classesTeaching) {
-			displayText += _class.toString() + "\n";
-		}
 		
 		return displayText;
 	}

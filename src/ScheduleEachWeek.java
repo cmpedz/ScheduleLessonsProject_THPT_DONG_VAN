@@ -23,11 +23,38 @@ public class ScheduleEachWeek {
 	
 	public void arrangeLessons() {
 		
+		for(int i = 0; i < Teacher.MAX_PRIORITY_TYPES; i++) {
+			
+			arrangeLessonsEachPriorityType(i);
+			
+		}
+		
+		arrangeLowPriorityLessonsIntoAfternoon();
+	}
+	
+	private void arrangeLowPriorityLessonsIntoAfternoon() {
+		
+		for(Teacher teacher : teachers) {
+			
+			ArrayList<SchoolClass> lowPriorityLessons = teacher.getClassesTeaching(Teacher.LOW_PRIORITY_TYPE);
+			
+			for(SchoolClass _class : lowPriorityLessons) {
+				_class.getSpeciality().setIsInMorning(false);
+			}
+			
+		}
+		
+		arrangeLessonsEachPriorityType(Teacher.LOW_PRIORITY_TYPE);
+		
+	}
+	
+	private void arrangeLessonsEachPriorityType(int priority) {
+		
 		int index = 0;
 		
 		for(ScheduleEachDay s : scheduleEachDays) {
 			
-			removeTeacherSystem.removeTeacherWhoMeetLessonsQuantities(teachers);
+			removeTeacherSystem.removeTeacherWhoMeetLessonsQuantities(teachers, priority);
 			
 			for(int i=0; i < teachers.size(); i++) {
 				
@@ -40,13 +67,14 @@ public class ScheduleEachWeek {
 					
 					teachers.get(i).setCurrentDayIndex(index);
 					
-					s.addTeacherLessonIntoScheduleTable(teachers.get(i));
+					s.addTeacherLessonIntoScheduleTable(teachers.get(i), priority);
 				}
 				
 			}
 			
 			index++;
 		}
+		
 	}
 	
 	public ScheduleEachDay[] getScheduleEachDays() {

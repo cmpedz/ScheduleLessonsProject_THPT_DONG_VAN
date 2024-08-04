@@ -7,10 +7,11 @@ public class RemoveTeacherWhoHasEnoughLessonsSystem {
 	private ArrayList<SchoolClass> classesNeedRemove = new ArrayList<SchoolClass>();
 	
 	
-    public void removeTeacherWhoMeetLessonsQuantities(ArrayList<Teacher> teachers) {
+    public void removeTeacherWhoMeetLessonsQuantities(ArrayList<Teacher> teachers, int priority) {
 		
 		for(Teacher t : teachers) {
-			for(SchoolClass _class : t.getClassesTeaching()) {
+			
+			for(SchoolClass _class : t.getClassesTeaching(priority)) {
 
 				if(_class.getRemainingLessonPerWeek() <= 0) {
 					
@@ -21,15 +22,16 @@ public class RemoveTeacherWhoHasEnoughLessonsSystem {
 			
 			//remove class
 			for(SchoolClass _class : classesNeedRemove) {
-				t.getClassesTeaching().remove(_class);
+				t.getClassesTeaching(priority).remove(_class);
 			}
 			
 			
 		
-			if(t.getClassesTeaching().size() == 0) {
+			if(t.getClassesTeaching(priority).size() == 0) {
 				teachersNeedRemove.add(t);
 				
 			}
+			
 		}
 		
 		
@@ -41,6 +43,8 @@ public class RemoveTeacherWhoHasEnoughLessonsSystem {
 		
 		resetData();
 	}
+    
+    
     
     private void resetData() {
     	this.classesNeedRemove.clear();

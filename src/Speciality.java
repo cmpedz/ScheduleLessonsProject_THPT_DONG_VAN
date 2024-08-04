@@ -1,7 +1,7 @@
 
 public class Speciality {
 	
-	private final boolean IS_IN_MORNING;
+	private boolean isInMorning;
 	
 	private final int MAX_CONTINUES_LESSONS_CAN_TEACH;
 	
@@ -21,7 +21,7 @@ public class Speciality {
 		
 		this.PRIORITY = pRIORITY;
 		
-		IS_IN_MORNING = iS_IN_MORNING;
+		isInMorning = iS_IN_MORNING;
 		
 		MAX_CONTINUES_LESSONS_CAN_TEACH = mAX_CONTINUES_LESSONS_CAN_TEACH;
 		
@@ -33,7 +33,13 @@ public class Speciality {
 	}
 
 	public boolean isInMorning() {
-		return IS_IN_MORNING;
+		return isInMorning;
+	}
+	
+	public void setIsInMorning(boolean isInMorning) {
+		
+		this.isInMorning = isInMorning;
+		
 	}
 
 	public int getMaxContinuesLessonCanTeach() {
@@ -62,7 +68,7 @@ public class Speciality {
 		
 		return "Specialty Name: " + NAME + "\n" +
 			   "Max Lesson Continues: " + MAX_CONTINUES_LESSONS_CAN_TEACH + "\n" +
-			   "Is In Morning: " + IS_IN_MORNING + "\n" +
+			   "Is In Morning: " + isInMorning + "\n" +
 			   "Is Main Course: " + IS_MAIN_COURSE + "\n" +
 			   "Group: " + GROUP + "\n" +
 			   "Priority: " + PRIORITY + "\n";

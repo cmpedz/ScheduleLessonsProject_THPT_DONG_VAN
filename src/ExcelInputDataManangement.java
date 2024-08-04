@@ -65,6 +65,18 @@ public class ExcelInputDataManangement {
 		
 		dataInsertController.get(TEACHER_TABLE).insertData(sheet);
 		
+		InsertDataFromTeacherTableManager insertDataFromTeacherTableManager 
+		= (InsertDataFromTeacherTableManager)dataInsertController.get(TEACHER_TABLE);
+		
+		TreeMap<String, Teacher> teachers = insertDataFromTeacherTableManager.getTeachers();
+		
+		for(String teacherName : teachers.keySet()) {
+			
+			Teacher teacher = teachers.get(teacherName);
+					
+			SchoolInformations.getInstance().getCurrentTeacherList().add(teacher);
+		}
+		
 	}
 	
 

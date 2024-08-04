@@ -1,11 +1,17 @@
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 
 public class InsertDataFromTeacherTableManager extends InsertDataFromEachTable{
+	
+	private final TreeMap<String, Teacher> teachers = new TreeMap<String, Teacher>();
+	
+	public TreeMap<String, Teacher> getTeachers() {
+		return teachers;
+	}
 
 	@Override
 	public void getDataEachRow(Row row) {
@@ -41,7 +47,9 @@ public class InsertDataFromTeacherTableManager extends InsertDataFromEachTable{
 		
 		
 		//define teacher infos
-		Teacher teacher = new Teacher(teacherName, group, dayOff, classes);
+		Teacher teacher = new Teacher(teacherName, group, dayOff);
+		
+		addLessonsForTeacher(teacher, classes);
 		
 		int firstDayWorkingIndex = 0;
 		
@@ -49,17 +57,37 @@ public class InsertDataFromTeacherTableManager extends InsertDataFromEachTable{
 		
 		for(int i = firstDayWorkingIndex; i < lastDayWorkingIndex; i++) {
 			
-			addUnexpectedLessonsIntoSpecifiedDay(i, row, teacher);
+			addUnexpectedLessonsIntoSpecifiedDay(i, row, teacherName);
 		}
 		
-		schoolInformations.getCurrentTeacherList().add(teacher);
 	}
 	
-	private void addUnexpectedLessonsIntoSpecifiedDay(int indexDay, Row row, Teacher teacher) {
+	private void addLessonsForTeacher(Teacher teacher, ArrayList<SchoolClass> classes) {
+		
+		String teacherName = teacher.getNAME();
+		
+		if(this.teachers.get(teacherName) == null) {
+			
+			this.teachers.put(teacherName, teacher);
+			
+		}
+		
+		for(SchoolClass _class : classes) {
+			
+			this.teachers.get(teacherName).addClassTeaching(_class);;
+		}
+		
+	}
+	
+	private void addUnexpectedLessonsIntoSpecifiedDay(int indexDay, Row row, String teacherName) {
 		
 		int exchangeDayIndexIntoDayCellUnit = 5;
 		
 		int dayDataCell = indexDay + exchangeDayIndexIntoDayCellUnit;
+		
+		Teacher teacher = teachers.get(teacherName);
+		
+		if(teacher == null) return;
 		
 		Cell unexpectedLessonsDataCell = row.getCell(dayDataCell); 
 		

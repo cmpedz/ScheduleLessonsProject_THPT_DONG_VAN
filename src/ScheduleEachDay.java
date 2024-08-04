@@ -38,15 +38,15 @@ public class ScheduleEachDay {
 	}
 
 	
-	public void addTeacherLessonIntoScheduleTable(Teacher t) {
+	public void addTeacherLessonIntoScheduleTable(Teacher t, int prioritySpecialty) {
 		
-		for(SchoolClass _class : t.getClassesTeaching()){
-			
-			for(int i = 0; i < _class.getSpeciality().getMaxContinuesLessonCanTeach(); i++) {
-				this.arrangeLesson.addLesson(_class, t);
-			}
+			for(SchoolClass _class : t.getClassesTeaching(prioritySpecialty)){
 				
-		}
+				for(int i = 0; i < _class.getSpeciality().getMaxContinuesLessonCanTeach(); i++) {
+					this.arrangeLesson.addLesson(_class, t);
+				}
+					
+			}
 		
 	}
 	
