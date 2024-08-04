@@ -5,7 +5,7 @@ public class FormatDisplayAndExchangeData {
 		return teacherName + "-" + specialityName;
 	}
 	
-	public static String separateTeacherNameInALessonDisplayFormat(String formatString) {
+	public static String separateTeacherNameFromALessonDisplayFormat(String formatString) {
 		
 		String teacherName = formatString.split("-")[0];
 		

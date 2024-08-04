@@ -1,6 +1,8 @@
 import java.util.TreeMap;
 
-public class CheckCanBeAddingdIfClassIsHavingMainCourseCondition extends ArrangeLessonCondition{
+import java.lang.Boolean;
+
+public class CheckIsHavingMainCourseCondition extends ArrangeLessonConditionWithoutIndex{
 
 	private TreeMap<String, Pairs<String, Boolean>> isHavingMainCourse = new TreeMap<String, Pairs<String, Boolean>>();
 	

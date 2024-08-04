@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class ArrangeLessonSystem { 
@@ -15,21 +16,20 @@ public class ArrangeLessonSystem {
 	
 	public static final int MAX_CONDITIONS = 3;
 	
-	private ArrangeLessonCondition[] conditions;
+	private IArrangeLessonConditionsContainer conditionsContainer;
 	
 	public ArrangeLessonSystem(TreeMap<String, String[]> ScheduleTable) {
 		
 		this.scheduleTable = ScheduleTable;
 		
-		conditions = new ArrangeLessonCondition[MAX_CONDITIONS];
+		conditionsContainer = new ArrangeLessonConditionsContainer();
 		
 		addingConditionsForArrangeSystem();
 		
 		for(String className : iSchoolInformations.getClassesNameList()) {
 			
-			for(ArrangeLessonCondition condition : conditions) {
-				condition.constructDataForEachClass(className);
-			}
+			
+			conditionsContainer.constructDataForCondition(className);
 		
 		}
 	}
@@ -38,45 +38,29 @@ public class ArrangeLessonSystem {
 	
 	private void addingConditionsForArrangeSystem() {
 		// TODO Auto-generated method stub
-		conditions[INDEX_MAIN_COURSE_CONDITION] = new CheckCanBeAddingdIfClassIsHavingMainCourseCondition();
+		conditionsContainer.addNewCondition(new CheckIsHavingMainCourseCondition());
 		
-		conditions[INDEX_EMPTY_LESSON_AND_TEACHER_IS_FREE] = new TeacherIsFreeAndClassIsHavingEmptyLessonCondition(scheduleTable);
+		conditionsContainer.addNewCondition(new IsClassHavingEmptyLessonCondition());
 		
-		conditions[INDEX_DiSTRIBUTION_GROUPS_CONDITION] = new DistributingGroupsEqually();
+		conditionsContainer.addNewCondition(new DistributingGroupsEqually());
+		
+		conditionsContainer.addNewCondition(new IsClassHavingEmptyLessonCondition());
+		
+		conditionsContainer.addNewCondition(new IsTeacherFreeCondition(this.scheduleTable));
+		
 			
 	}
-
-
+	
+	
 
 	public void addLesson(SchoolClass _class, Teacher teacher) {
 		
-		boolean canAddClass = true;
+		boolean canAddClass = conditionsContainer.checkSatisfiedConditionsWithoutIndex(teacher, _class);
+		
+		int indexNeedAdd = conditionsContainer.checkSatisfiedConditionsWithIndex(teacher, _class);
 		
 		
-		for(ArrangeLessonCondition conditions : conditions) {
-			
-			conditions.set_class(_class);
-			
-			conditions.setTeacher(teacher);
-			
-			if(!conditions.checkIsMeetingCondition()) {
-				canAddClass = false;
-				break;
-			}
-			
-			
-		}
-		
-		TeacherIsFreeAndClassIsHavingEmptyLessonCondition basicCondition = 
-				(TeacherIsFreeAndClassIsHavingEmptyLessonCondition)conditions[INDEX_EMPTY_LESSON_AND_TEACHER_IS_FREE];
-		
-		int indexNeedAdd = -1;
-		
-		if(basicCondition != null) {
-			indexNeedAdd = basicCondition.getIndexLessonNeedingAdding();
-		}
-	
-		if(canAddClass) {
+		if(canAddClass && indexNeedAdd != ArrangeLessonConditionsContainer.NOT_FOUND_LESSON) {
 			
 			String className = _class.getName();
 			
@@ -87,9 +71,7 @@ public class ArrangeLessonSystem {
 			
 			_class.setRemainingLessonPerWeek(_class.getRemainingLessonPerWeek() - 1);
 			
-			for(ArrangeLessonCondition condition : conditions) {
-				condition.changeDataAfterAddingNewLesson();
-			}
+			conditionsContainer.updateDataForCondition();
 			
 		}
 			

@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -22,7 +24,6 @@ public class InsertDataFromTeacherTableManager extends InsertDataFromEachTable{
 		
 		String group = row.getCell(7).getStringCellValue();
 		
-		
 		// define classes taught by this teacher 
 		ArrayList<SchoolClass> classes = new ArrayList<SchoolClass>();
 		
@@ -33,7 +34,27 @@ public class InsertDataFromTeacherTableManager extends InsertDataFromEachTable{
 		
 		
 		//define teacher infos
-		Teacher teacher = new Teacher(teacherName, group, dayOff, classes, 0);
+		Teacher teacher = new Teacher(teacherName, group, dayOff, classes);
+		
+		Cell lessonAvoidInforsCell = row.getCell(5); 
+		
+		if(lessonAvoidInforsCell != null && 
+				lessonAvoidInforsCell.getCellType() != CellType.BLANK) {
+			
+			String[] lessonsAvoidTeaching = row.getCell(5).getStringCellValue().split(",");
+			
+			for(String lI : lessonsAvoidTeaching) {
+				
+				int lessonIndex = Integer.valueOf(lI);
+				System.out.println("Lesson index :" + lessonIndex);
+				
+				teacher.addLessonAvoidIntoList(lessonIndex);
+			}
+			
+		}
+		
+
+		
 		
 		schoolInformations.getCurrentTeacherList().add(teacher);
 	}

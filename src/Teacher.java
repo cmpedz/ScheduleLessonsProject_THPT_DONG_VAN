@@ -8,18 +8,16 @@ public class Teacher {
 	
 	private String dayOff;
 	
-	private int lessonAvoidTeaching;
+	private ArrayList<Integer> lessonAvoidTeaching = new ArrayList<Integer>();
 	
 	private ArrayList<SchoolClass> classesTeaching = new ArrayList<SchoolClass>();
 	
 
 
-	public Teacher(String name, String group, String dayOff, ArrayList<SchoolClass> classesTeaching,
-			int lessonAvoidTeaching) {
+	public Teacher(String name, String group, String dayOff, ArrayList<SchoolClass> classesTeaching) {
 		super();
 		this.NAME = name;
 		this.GROUP = group;
-		this.lessonAvoidTeaching = lessonAvoidTeaching;
 		this.dayOff = dayOff;
 		this.classesTeaching = classesTeaching;
 	}
@@ -41,15 +39,15 @@ public class Teacher {
 
 
 
-	public int getLessonAvoidTeaching() {
+	public ArrayList<Integer> getLessonAvoidTeaching() {
 		return lessonAvoidTeaching;
 	}
 
 
 
 
-	public void setLessonAvoidTeaching(int lessonAvoidTeaching) {
-		this.lessonAvoidTeaching = lessonAvoidTeaching;
+	public void addLessonAvoidIntoList(int lessonIndex) {
+		this.lessonAvoidTeaching.add(lessonIndex);
 	}
 
 

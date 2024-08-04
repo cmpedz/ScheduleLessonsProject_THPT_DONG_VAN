@@ -20,9 +20,11 @@ public class ScheduleEachDay {
 			int quantitiesLessonEachDay = SchoolInformations.MAX_LESSONS_IN_MORNING 
 					+ SchoolInformations.MAX_LESSONS_IN_AFTERNOON;
 			
-			scheduleTable.put(className, new String[quantitiesLessonEachDay]);
+			String[] lessons = new String[quantitiesLessonEachDay];
 			
-			for(int i=0; i<scheduleTable.get(className).length; i++) {
+			scheduleTable.put(className, lessons);
+			
+			for(int i = 0; i < scheduleTable.get(className).length; i++) {
 				scheduleTable.get(className)[i] = DEFINE_EMPTY_VALUE;
 			}
 		}

@@ -4,12 +4,6 @@ public abstract class ArrangeLessonCondition{
 	
 	protected Teacher teacher;
 	
-	public abstract boolean checkIsMeetingCondition();
-	
-	public abstract void constructDataForEachClass(String className);
-	
-	public abstract void changeDataAfterAddingNewLesson();
-	
 	public void set_class(SchoolClass _class) {
 		this._class = _class;
 	}
@@ -17,6 +11,8 @@ public abstract class ArrangeLessonCondition{
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
+	
+	public abstract int getConditionType();
 	
 	
 	

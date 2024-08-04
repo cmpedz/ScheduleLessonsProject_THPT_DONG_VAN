@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 
-public class DistributingGroupsEqually extends ArrangeLessonCondition{
+public class DistributingGroupsEqually extends ArrangeLessonConditionWithoutIndex{
 
 	
 	private TreeMap<String, Pairs<String, Integer>[]> quantitiesEachGroup = new TreeMap<String, Pairs<String,Integer>[]>();
@@ -88,7 +88,6 @@ public class DistributingGroupsEqually extends ArrangeLessonCondition{
 	
 		
 	}
-	
 	
 	
 
