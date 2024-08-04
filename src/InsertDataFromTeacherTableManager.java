@@ -10,19 +10,26 @@ public class InsertDataFromTeacherTableManager extends InsertDataFromEachTable{
 	@Override
 	public void getDataEachRow(Row row) {
 		
-		String teacherName = row.getCell(0).getStringCellValue();
+		int teacherDataCell = 0;
+		String teacherName = row.getCell(teacherDataCell).getStringCellValue();
 		
-		String[] classesTaught = row.getCell(1).getStringCellValue().split(",");
+		int classDataCell = 1;
+		String[] classesTaught = row.getCell(classDataCell).getStringCellValue().split(",");
 		
-		String specialty = row.getCell(2).getStringCellValue();
+		int specialtyDataCell = 2;
+		String specialty = row.getCell(specialtyDataCell).getStringCellValue();
 		
-		int lessonsPerWeek = (int)row.getCell(3).getNumericCellValue();
+		int lessonsPerWeekDataCell = 3;
+		int lessonsPerWeek = (int)row.getCell(lessonsPerWeekDataCell).getNumericCellValue();
 		
-		int lessonsPerYear = (int)row.getCell(4).getNumericCellValue();
+		int lessonsPerYearDataCell = 4;
+		int lessonsPerYear = (int)row.getCell(lessonsPerYearDataCell).getNumericCellValue();
 		
-		String dayOff = row.getCell(6).getStringCellValue();
+		int dayOffDataCell = 11;
+		String dayOff = row.getCell(dayOffDataCell).getStringCellValue();
 		
-		String group = row.getCell(7).getStringCellValue();
+		int groupDataCell = 12;
+		String group = row.getCell(groupDataCell).getStringCellValue();
 		
 		// define classes taught by this teacher 
 		ArrayList<SchoolClass> classes = new ArrayList<SchoolClass>();
@@ -36,27 +43,45 @@ public class InsertDataFromTeacherTableManager extends InsertDataFromEachTable{
 		//define teacher infos
 		Teacher teacher = new Teacher(teacherName, group, dayOff, classes);
 		
-		Cell lessonAvoidInforsCell = row.getCell(5); 
+		int firstDayWorkingIndex = 0;
 		
-		if(lessonAvoidInforsCell != null && 
-				lessonAvoidInforsCell.getCellType() != CellType.BLANK) {
+		int lastDayWorkingIndex = firstDayWorkingIndex + SchoolInformations.getInstance().getDayWorkingList().size();
+		
+		for(int i = firstDayWorkingIndex; i < lastDayWorkingIndex; i++) {
 			
-			String[] lessonsAvoidTeaching = row.getCell(5).getStringCellValue().split(",");
-			
-			for(String lI : lessonsAvoidTeaching) {
-				
-				int lessonIndex = Integer.valueOf(lI);
-				System.out.println("Lesson index :" + lessonIndex);
-				
-				teacher.addLessonsExpectedNotTeachingIntoList(lessonIndex - 1);
-			}
-			
+			addUnexpectedLessonsIntoSpecifiedDay(i, row, teacher);
 		}
 		
-
-		
-		
 		schoolInformations.getCurrentTeacherList().add(teacher);
+	}
+	
+	private void addUnexpectedLessonsIntoSpecifiedDay(int indexDay, Row row, Teacher teacher) {
+		
+		int exchangeDayIndexIntoDayCellUnit = 5;
+		
+		int dayDataCell = indexDay + exchangeDayIndexIntoDayCellUnit;
+		
+		Cell unexpectedLessonsDataCell = row.getCell(dayDataCell); 
+		
+		if(unexpectedLessonsDataCell != null && 
+				unexpectedLessonsDataCell.getCellType() != CellType.BLANK) {
+			
+			String[] unexpectedlessons = unexpectedLessonsDataCell.getStringCellValue().split(",");
+			
+			
+			String specifiedDay = schoolInformations.getDayWorkingList().get(indexDay);
+			
+			for(String sLesson : unexpectedlessons) {
+				
+				int iLesson = Integer.parseInt(sLesson);
+				
+				teacher.addLessonsExpectedNotTeachingIntoList(iLesson - 1, specifiedDay);
+				
+			}
+			
+			
+			
+		}
 	}
 		
 

@@ -13,6 +13,10 @@ public class CheckingIsExpectedLesson extends ArrangeLessonConditionWithIndex{
 		// TODO Auto-generated method stub
 		ArrayList<Integer> lessonsExpectedNotTeaching = teacher.getLessonsExpectedNotTeaching();
 		
+		if(lessonsExpectedNotTeaching == null) return true;
+		
+		System.out.println("Current Index : " + teacher.getCurrentDayIndex());
+		
 		for(Integer lesson : lessonsExpectedNotTeaching) {
 			if(lesson == indexLesson) {
 				return false;

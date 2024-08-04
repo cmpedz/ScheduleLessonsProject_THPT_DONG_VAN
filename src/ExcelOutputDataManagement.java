@@ -69,8 +69,6 @@ public class ExcelOutputDataManagement {
 			
 			if(value != null) {
 				
-				System.out.println(value);
-				
 				evaluatedCell.setCellValue(value);
 			}
 			

@@ -23,15 +23,18 @@ public class ExcelInputDataManangement {
 	private static ExcelInputDataManangement instance; 
 	
 	private ExcelInputDataManangement() {
-		dataInsertController.put(TEACHER_TABLE, new InsertDataFromTeacherTableManager());
-		
-		dataInsertController.put(SPECIALITY_TABLE, new InsertDataFromSpecialtyTable());
 		
 		dataInsertController.put(CLASS_TABLE, new InsertDataFromClassTable());
 		
 		dataInsertController.put(GROUP_TABLE, new InsertDataFromGroupTable());
 		
 		dataInsertController.put(DAY_WORKING_TABLE, new InsertDataFromWorkingDaysTable());
+		
+		dataInsertController.put(SPECIALITY_TABLE, new InsertDataFromSpecialtyTable());
+		
+		dataInsertController.put(TEACHER_TABLE, new InsertDataFromTeacherTableManager());
+		
+		
 	}
 	
 	
@@ -52,11 +55,15 @@ public class ExcelInputDataManangement {
 		
 		indicateStartAndEndRowForEachTable(sheet);
 		
-		for(String keyName : dataInsertController.keySet()) {
-			
-			dataInsertController.get(keyName).insertData(sheet);
-			
-		}
+		dataInsertController.get(CLASS_TABLE).insertData(sheet);
+		
+		dataInsertController.get(DAY_WORKING_TABLE).insertData(sheet);
+		
+		dataInsertController.get(GROUP_TABLE).insertData(sheet);
+		
+		dataInsertController.get(SPECIALITY_TABLE).insertData(sheet);
+		
+		dataInsertController.get(TEACHER_TABLE).insertData(sheet);
 		
 	}
 	

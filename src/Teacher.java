@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class Teacher {
 	
@@ -7,19 +8,28 @@ public class Teacher {
 	private final String  GROUP;
 	
 	private String dayOff;
+
+	private int currentDayIndex = 0;
 	
-	private ArrayList<Integer> lessonsExpectedNotTeaching = new ArrayList<Integer>();
+	private  TreeMap<String, ArrayList<Integer>>  lessonsExpectedNotTeaching = new TreeMap<String, ArrayList<Integer>>();
 	
 	private ArrayList<SchoolClass> classesTeaching = new ArrayList<SchoolClass>();
 	
 
 
 	public Teacher(String name, String group, String dayOff, ArrayList<SchoolClass> classesTeaching) {
+		
 		super();
 		this.NAME = name;
 		this.GROUP = group;
 		this.dayOff = dayOff;
 		this.classesTeaching = classesTeaching;
+		
+		for(String day : SchoolInformations.getInstance().getDayWorkingList()) {
+			
+			lessonsExpectedNotTeaching.put(day, new ArrayList<Integer>());
+		}
+		
 	}
 
 	
@@ -36,18 +46,37 @@ public class Teacher {
 		this.dayOff = dayOff;
 	}
 
+	
 
 
-
-	public ArrayList<Integer> getLessonsExpectedNotTeaching() {
-		return lessonsExpectedNotTeaching;
+	public int getCurrentDayIndex() {
+		return currentDayIndex;
 	}
 
 
 
 
-	public void addLessonsExpectedNotTeachingIntoList(int lessonIndex) {
-		this.lessonsExpectedNotTeaching.add(lessonIndex);
+	public void setCurrentDayIndex(int currentDayIndex) {
+		this.currentDayIndex = currentDayIndex;
+	}
+
+
+
+
+	public ArrayList<Integer> getLessonsExpectedNotTeaching() {
+		
+		String day = SchoolInformations.getInstance().getDayWorkingList().get(currentDayIndex);
+		
+		return lessonsExpectedNotTeaching.get(day);
+	}
+
+
+
+
+	public void addLessonsExpectedNotTeachingIntoList(int lessonIndex, String day) {
+		
+	
+		this.lessonsExpectedNotTeaching.get(day).add(lessonIndex);
 	}
 
 

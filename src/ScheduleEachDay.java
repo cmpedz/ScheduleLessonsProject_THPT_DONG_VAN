@@ -37,32 +37,6 @@ public class ScheduleEachDay {
 		return scheduleTable;
 	}
 
-
-	public void print() {
-		 System.out.print("----------");
-		 for(String className : iSchoolInformations.getClassesNameList()) {
-			 System.out.print(className);
-			 System.out.print("----------");
-		 }
-		 
-		 for(int i = 0; i < SchoolInformations.MAX_LESSONS_IN_AFTERNOON + SchoolInformations.MAX_LESSONS_IN_MORNING; i++ ) {
-			 
-			 System.out.println();
-			 
-			 System.out.print("----------");
-			 
-			 for(String className : iSchoolInformations.getClassesNameList()) {
-				 
-				 System.out.print(scheduleTable.get(className)[i]);
-				 
-				 System.out.print("----------");
-			 }
-			 
-		 }
-		
-		 
-			
-	}
 	
 	public void addTeacherLessonIntoScheduleTable(Teacher t) {
 		
