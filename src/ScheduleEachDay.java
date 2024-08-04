@@ -42,7 +42,8 @@ public class ScheduleEachDay {
 		
 			for(SchoolClass _class : t.getClassesTeaching(prioritySpecialty)){
 				
-				for(int i = 0; i < _class.getSpeciality().getMaxContinuesLessonCanTeach(); i++) {
+				for(int i = 0; i < _class.getSpeciality().getMaxContinuesLessonCanTeach() && 
+						_class.getRemainingLessonPerWeek() > 0; i++) {
 					this.arrangeLesson.addLesson(_class, t);
 				}
 					

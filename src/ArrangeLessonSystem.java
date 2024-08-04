@@ -73,6 +73,9 @@ public class ArrangeLessonSystem {
 			
 			_class.setRemainingLessonPerWeek(_class.getRemainingLessonPerWeek() - 1);
 			
+			System.out.println("check remaining lessons of " + _class.getName() 
+			+ ", speciality :" + _class.getSpeciality().getName() + ", quantitiesRemain :" + _class.getRemainingLessonPerWeek());
+			
 			conditionsContainer.updateDataForCondition();
 			
 		}

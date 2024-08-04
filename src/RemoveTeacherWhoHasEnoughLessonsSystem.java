@@ -26,11 +26,18 @@ public class RemoveTeacherWhoHasEnoughLessonsSystem {
 			}
 			
 			
+		}
 		
-			if(t.getClassesTeaching(priority).size() == 0) {
-				teachersNeedRemove.add(t);
+		for(Teacher t : teachers) {
+			
+			boolean isTeacherHavingNoLessons = t.getClassesTeaching(Teacher.LOW_PRIORITY_TYPE).size() == 0 &&
+												t.getClassesTeaching(Teacher.HIGH_PRIORITY_TYPE).size() == 0;
+			
+			
 				
-			}
+				if(isTeacherHavingNoLessons) {
+					teachersNeedRemove.add(t);
+				}
 			
 		}
 		
