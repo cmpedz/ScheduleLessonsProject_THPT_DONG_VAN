@@ -2,7 +2,7 @@ import java.util.TreeMap;
 
 import java.lang.Boolean;
 
-public class CheckIsHavingMainCourseCondition extends ArrangeLessonConditionWithoutIndex{
+public class CheckIsHavingMainCourse extends ArrangeLessonConditionWithoutIndex{
 
 	private TreeMap<String, Pairs<String, Boolean>> isHavingMainCourse = new TreeMap<String, Pairs<String, Boolean>>();
 	

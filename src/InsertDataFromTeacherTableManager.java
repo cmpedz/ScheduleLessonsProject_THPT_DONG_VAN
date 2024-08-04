@@ -48,7 +48,7 @@ public class InsertDataFromTeacherTableManager extends InsertDataFromEachTable{
 				int lessonIndex = Integer.valueOf(lI);
 				System.out.println("Lesson index :" + lessonIndex);
 				
-				teacher.addLessonAvoidIntoList(lessonIndex);
+				teacher.addLessonsExpectedNotTeachingIntoList(lessonIndex - 1);
 			}
 			
 		}

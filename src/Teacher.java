@@ -8,7 +8,7 @@ public class Teacher {
 	
 	private String dayOff;
 	
-	private ArrayList<Integer> lessonAvoidTeaching = new ArrayList<Integer>();
+	private ArrayList<Integer> lessonsExpectedNotTeaching = new ArrayList<Integer>();
 	
 	private ArrayList<SchoolClass> classesTeaching = new ArrayList<SchoolClass>();
 	
@@ -39,15 +39,15 @@ public class Teacher {
 
 
 
-	public ArrayList<Integer> getLessonAvoidTeaching() {
-		return lessonAvoidTeaching;
+	public ArrayList<Integer> getLessonsExpectedNotTeaching() {
+		return lessonsExpectedNotTeaching;
 	}
 
 
 
 
-	public void addLessonAvoidIntoList(int lessonIndex) {
-		this.lessonAvoidTeaching.add(lessonIndex);
+	public void addLessonsExpectedNotTeachingIntoList(int lessonIndex) {
+		this.lessonsExpectedNotTeaching.add(lessonIndex);
 	}
 
 
@@ -80,7 +80,7 @@ public class Teacher {
 		String displayText = "\n" + "Teacher Name: " + NAME + "\n" +
 							 "Group: " + GROUP + "\n" +
 							 "Dayoff: " + dayOff + "\n" +
-							 "Lesson Avoid Teaching: " + lessonAvoidTeaching + "\n" +
+							 "Lesson Avoid Teaching: " + lessonsExpectedNotTeaching + "\n" +
 							 "====== Current Classes Taught ======" + "\n" + "\n";
 		for(SchoolClass _class : classesTeaching) {
 			displayText += _class.toString() + "\n";

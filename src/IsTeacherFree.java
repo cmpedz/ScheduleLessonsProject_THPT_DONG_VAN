@@ -1,10 +1,10 @@
 import java.util.Map;
 import java.util.TreeMap;
 
-public class IsTeacherFreeCondition extends ArrangeLessonConditionWithIndex {
+public class IsTeacherFree extends ArrangeLessonConditionWithIndex {
 
 
-	public IsTeacherFreeCondition(TreeMap<String, String[]>scheduleTable) {
+	public IsTeacherFree(TreeMap<String, String[]>scheduleTable) {
 		super(scheduleTable);
 		// TODO Auto-generated constructor stub
 	}

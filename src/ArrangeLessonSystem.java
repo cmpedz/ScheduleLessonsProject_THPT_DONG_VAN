@@ -38,15 +38,17 @@ public class ArrangeLessonSystem {
 	
 	private void addingConditionsForArrangeSystem() {
 		// TODO Auto-generated method stub
-		conditionsContainer.addNewCondition(new CheckIsHavingMainCourseCondition());
+		conditionsContainer.addNewCondition(new CheckIsHavingMainCourse());
 		
-		conditionsContainer.addNewCondition(new IsClassHavingEmptyLessonCondition());
+		conditionsContainer.addNewCondition(new IsClassHavingEmptyLesson());
 		
 		conditionsContainer.addNewCondition(new DistributingGroupsEqually());
 		
-		conditionsContainer.addNewCondition(new IsClassHavingEmptyLessonCondition());
+		conditionsContainer.addNewCondition(new IsClassHavingEmptyLesson());
 		
-		conditionsContainer.addNewCondition(new IsTeacherFreeCondition(this.scheduleTable));
+		conditionsContainer.addNewCondition(new IsTeacherFree(this.scheduleTable));
+		
+		conditionsContainer.addNewCondition(new CheckingIsExpectedLesson(scheduleTable));
 		
 			
 	}

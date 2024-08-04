@@ -1,6 +1,6 @@
 import java.util.TreeMap;
 
-public class IsClassHavingEmptyLessonCondition extends ArrangeLessonConditionWithoutIndex{
+public class IsClassHavingEmptyLesson extends ArrangeLessonConditionWithoutIndex{
 	public static final int CURRENT_LESSONS_HAS_IN_THE_MORNING = 0;
 	
 	public static final int CURRENT_LESSONS_HAS_IN_THE_AFTERNOON = 1;
@@ -71,9 +71,9 @@ public class IsClassHavingEmptyLessonCondition extends ArrangeLessonConditionWit
 		Integer[] currentLessonQuantities = this.quantitiesLessonEachClass.get(className);
 		
 		if(isInMorning) {
-			currentLessonQuantities[IsClassHavingEmptyLessonCondition.CURRENT_LESSONS_HAS_IN_THE_MORNING]++;
+			currentLessonQuantities[IsClassHavingEmptyLesson.CURRENT_LESSONS_HAS_IN_THE_MORNING]++;
 		} else {
-			currentLessonQuantities[IsClassHavingEmptyLessonCondition.CURRENT_LESSONS_HAS_IN_THE_AFTERNOON]++;
+			currentLessonQuantities[IsClassHavingEmptyLesson.CURRENT_LESSONS_HAS_IN_THE_AFTERNOON]++;
 		}
 		
 	}

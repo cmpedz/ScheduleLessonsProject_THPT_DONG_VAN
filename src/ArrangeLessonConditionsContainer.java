@@ -120,6 +120,10 @@ public class ArrangeLessonConditionsContainer implements IArrangeLessonCondition
 				
 				canAddLesson = conditionWithIndex.checkConditionWithIndexLesson(indexLesson);
 				
+				if(!canAddLesson) {
+					break;
+				}
+				
 			}
 			
 			count++;
