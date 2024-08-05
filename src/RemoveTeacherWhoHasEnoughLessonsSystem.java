@@ -22,7 +22,7 @@ public class RemoveTeacherWhoHasEnoughLessonsSystem {
 			
 			//remove class
 			for(SchoolClass _class : classesNeedRemove) {
-				t.getClassesTeaching(priority).remove(_class);
+				t.removeClassFromTaughtClasses(_class);
 			}
 			
 			

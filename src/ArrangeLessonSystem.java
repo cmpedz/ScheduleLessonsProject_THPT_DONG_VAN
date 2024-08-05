@@ -44,6 +44,8 @@ public class ArrangeLessonSystem {
 		
 		conditionsContainer.addNewCondition(new IsHavingRelaxTimeAtTheNoon(scheduleTable));
 		
+		conditionsContainer.addNewCondition(new DistributionQuantitiesLessonsEqually());
+		
 			
 	}
 	

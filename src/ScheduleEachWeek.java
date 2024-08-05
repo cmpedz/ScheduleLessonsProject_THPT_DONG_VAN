@@ -30,6 +30,26 @@ public class ScheduleEachWeek {
 		}
 		
 		arrangeLowPriorityLessonsIntoAfternoon();
+		
+		System.out.println("check available leftover lessons : ");
+		
+		for(Teacher t : teachers) {
+			
+			System.out.println("=========================");
+			
+			System.out.println(t.getNAME());
+			
+			for(int i = 0; i < 2 ; i++) {
+				for(SchoolClass c : t.getClassesTeaching(i)) {
+					System.out.println("class name : " + c.getName());
+					System.out.println("speciality name : " + c.getSpeciality().getName());
+					System.out.println("leftover lessons : " + c.getRemainingLessonPerWeek());
+				}
+			}
+			
+			System.out.println("=========================");
+			
+		}
 	}
 	
 	private void arrangeLowPriorityLessonsIntoAfternoon() {

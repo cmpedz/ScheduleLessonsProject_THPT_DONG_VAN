@@ -21,7 +21,7 @@ public class Teacher {
 	
 	private ArrayList<ArrayList<SchoolClass>> classesTeaching = new ArrayList<ArrayList<SchoolClass>>();
 	
-
+	private int sumLessonsTeachPerPriorityType = 0;
 
 	public Teacher(String name, String group, String dayOff) {
 		
@@ -38,6 +38,8 @@ public class Teacher {
 			
 			lessonsExpectedNotTeaching.put(day, new ArrayList<Integer>());
 		}
+		
+		
 		
 	}
 
@@ -113,10 +115,35 @@ public class Teacher {
 	public void addClassTeaching(SchoolClass _class) {
 		
 		int priorityClass = _class.getSpeciality().getPriority() - 1;
+		
+		sumLessonsTeachPerPriorityType += _class.getLessonsPerWeek();
 
 		this.classesTeaching.get(priorityClass).add(_class);
 	}
 	
+	public void removeClassFromTaughtClasses(SchoolClass mClass) {
+		
+		int priority = mClass.getSpeciality().getPriority() - 1;
+		
+		this.classesTeaching.get(priority).remove(mClass);
+	}
+	
+	
+	
+	public int getSumLessonsTeachPerPriorityType() {
+		return sumLessonsTeachPerPriorityType;
+	}
+
+	public int getAverageLessonsTeachEachDay() {
+		
+		int maxWorkingDays = 5;
+		
+		int averageLessonsTaughtEachDay = sumLessonsTeachPerPriorityType/ maxWorkingDays;
+		
+		return averageLessonsTaughtEachDay;
+	}
+
+
 	@Override
 	public String toString() {
 		String displayText = "\n" + "Teacher Name: " + NAME + "\n" +

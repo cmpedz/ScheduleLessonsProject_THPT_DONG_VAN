@@ -29,9 +29,6 @@ public class IsHavingRelaxTimeAtTheNoon extends ArrangeLessonConditionWithIndex{
 			
 			String teacherWhoTaughtLastLesson = FormatDisplayAndExchangeData.separateTeacherNameFromALessonDisplayFormat(lastLessonInTheMorning);
 			
-			System.out.println("check last teacher Name :" + teacherWhoTaughtLastLesson + ", assessed teacher :" + teacherName);
-			
-			
 			boolean didTeacherTeachLastLessonInTheMorning = teacherName.equals(teacherWhoTaughtLastLesson);
 			
 			if(didTeacherTeachLastLessonInTheMorning) return false;
