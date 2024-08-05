@@ -8,14 +8,6 @@ public class ArrangeLessonSystem {
 	
 	private ISchoolInformations iSchoolInformations = SchoolInformations.getInstance();
 	
-	public static final int INDEX_EMPTY_LESSON_AND_TEACHER_IS_FREE = 0;
-	
-	public static final int INDEX_MAIN_COURSE_CONDITION = 1;
-	
-	public static final int INDEX_DiSTRIBUTION_GROUPS_CONDITION = 2;
-	
-	public static final int MAX_CONDITIONS = 3;
-	
 	private IArrangeLessonConditionsContainer conditionsContainer;
 	
 	public ArrangeLessonSystem(TreeMap<String, String[]> ScheduleTable) {
@@ -50,6 +42,8 @@ public class ArrangeLessonSystem {
 		
 		conditionsContainer.addNewCondition(new CheckingIsExpectedLesson(scheduleTable));
 		
+		conditionsContainer.addNewCondition(new IsHavingRelaxTimeAtTheNoon(scheduleTable));
+		
 			
 	}
 	
@@ -72,9 +66,6 @@ public class ArrangeLessonSystem {
 					FormatDisplayAndExchangeData.getLessonDisplayFormat(teacher.getNAME(), speciality.getName());
 			
 			_class.setRemainingLessonPerWeek(_class.getRemainingLessonPerWeek() - 1);
-			
-			System.out.println("check remaining lessons of " + _class.getName() 
-			+ ", speciality :" + _class.getSpeciality().getName() + ", quantitiesRemain :" + _class.getRemainingLessonPerWeek());
 			
 			conditionsContainer.updateDataForCondition();
 			
