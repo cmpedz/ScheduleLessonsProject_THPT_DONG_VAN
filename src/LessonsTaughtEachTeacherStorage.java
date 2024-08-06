@@ -102,6 +102,12 @@ public class LessonsTaughtEachTeacherStorage {
 		
 	}
 	
+	
+	
+	public TreeMap<String, ArrayList<QuantitiesLessonsTaughtPerDay>> getLessonsTaughtEachDayEachTeacher() {
+		return lessonsTaughtEachDayEachTeacher;
+	}
+
 	public void checkData() {
 		
 		System.out.println("====================================================================");

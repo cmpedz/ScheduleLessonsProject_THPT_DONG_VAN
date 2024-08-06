@@ -42,6 +42,8 @@ public class ScheduleEachWeek {
 			
 			int dayWorkingIndex = 0;
 			
+			removeTeacherSystem.removeTeacherWhoMeetLessonsQuantities(teachers);
+			
 			for(ScheduleEachDay schADay : scheduleEachDays) {
 				
 				resetDataForSomeConditions(schADay);
@@ -54,7 +56,7 @@ public class ScheduleEachWeek {
 			
 			lessonsTaughtEachTeacherStorage.sortDaysRelyOnQuantitiesLessonItHas();
 			
-			lessonsTaughtEachTeacherStorage.checkData();
+			//lessonsTaughtEachTeacherStorage.checkData();
 			
 			
 			for(int i = 0; i < Teacher.MAX_PRIORITY_TYPES; i++) {
@@ -69,10 +71,8 @@ public class ScheduleEachWeek {
 		}
 		
 		
-		
-		printLeftOverLessons();
-		
-		System.out.println("check quantities lesson taught each teacher :");
+		printCurrentLessonsTaughtPerTeacher();
+		//printLeftOverLessons();
 		
 	}
 	
@@ -104,35 +104,41 @@ public class ScheduleEachWeek {
 	
 	private void arrangeLessonsEachPriorityType(int priority) {
 		
-		int index = 0;
 		
-		int leftOverWorkingDays = 5;
-		
-		for(ScheduleEachDay s : scheduleEachDays) {
+		for(String teacherName : lessonsTaughtEachTeacherStorage.getLessonsTaughtEachDayEachTeacher().keySet()) {
 			
-			removeTeacherSystem.removeTeacherWhoMeetLessonsQuantities(teachers, priority);
+			Teacher teacher = FormatDisplayAndExchangeData.getInstance().getTeacherObjectByOwnerName(teacherName);
 			
-			for(int i=0; i < teachers.size(); i++) {
+			ArrayList<QuantitiesLessonsTaughtPerDay> workingsSchedule = lessonsTaughtEachTeacherStorage.getLessonsTaughtEachDayEachTeacher().get(teacher.getNAME());
+			
+			int leftOverWorkingDays = 5;
+			
+			
+			for(QuantitiesLessonsTaughtPerDay aWorkingDay : workingsSchedule) {
 				
-				teachers.get(i).setLeftOverWorkingDays(leftOverWorkingDays);
+				teacher.setLeftOverWorkingDays(leftOverWorkingDays);
 				
-				String currentDay = schInformations.getDayWorkingList().get(index);
+				String currentDay = aWorkingDay.getCurrentDayWorking();
 				
-				
-				boolean isDayOff = teachers.get(i).getDayOff().toString().equals(currentDay);
+				boolean isDayOff = teacher.getDayOff().toString().equals(currentDay);
 				
 				if(!isDayOff) {
 					
-					teachers.get(i).setCurrentDayIndex(index);
+					int indexCurrentDay = SchoolInformations.getInstance().getDayWorkingList().indexOf(currentDay);
 					
-					s.addTeacherLessonIntoScheduleTable(teachers.get(i), priority);
+					teacher.setCurrentDayIndex(indexCurrentDay);
+					
+					scheduleEachDays[indexCurrentDay].addTeacherLessonIntoScheduleTable(teacher, priority);
 				}
 				
+				leftOverWorkingDays--;
+				
+				
 			}
-			
-			index++;
-			leftOverWorkingDays --;
 		}
+		
+		
+		
 		
 	}
 	
@@ -142,6 +148,28 @@ public class ScheduleEachWeek {
 
 	public void addTeacherIntoList(Teacher t) {
 		teachers.add(t);
+	}
+	
+	public void printCurrentLessonsTaughtPerTeacher() {
+		
+		for(String teacherName : lessonsTaughtEachTeacherStorage.getLessonsTaughtEachDayEachTeacher().keySet()) {
+			
+			System.out.println("=============================");
+			
+			System.out.println("Teacher Name :" + teacherName);
+			
+			for(QuantitiesLessonsTaughtPerDay q : lessonsTaughtEachTeacherStorage.getLessonsTaughtEachDayEachTeacher().get(teacherName)) {
+				System.out.println(q.getCurrentDayWorking() + " taught :" + q.getQuantitiesLessons() + " lessons");
+				
+			}
+			
+			Teacher assessedTeacher = FormatDisplayAndExchangeData.getInstance().getTeacherObjectByOwnerName(teacherName);
+			
+			System.out.println("leftover :" + assessedTeacher.getSumLessonsTeach());
+			
+			System.out.println("=============================");
+			
+		}
 	}
 	
 	public void printLeftOverLessons() {

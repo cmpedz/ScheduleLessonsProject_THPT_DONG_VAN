@@ -7,28 +7,43 @@ public class RemoveTeacherWhoHasEnoughLessonsSystem {
 	private ArrayList<SchoolClass> classesNeedRemove = new ArrayList<SchoolClass>();
 	
 	
-    public void removeTeacherWhoMeetLessonsQuantities(ArrayList<Teacher> teachers, int priority) {
+    public void removeTeacherWhoMeetLessonsQuantities(ArrayList<Teacher> teachers) {
 		
 		for(Teacher t : teachers) {
 			
-			for(SchoolClass _class : t.getClassesTeaching(priority)) {
-
-				if(_class.getRemainingLessonPerWeek() <= 0) {
-					
-					classesNeedRemove.add(_class);
-					
-				}
-			}
+			removeClassFunc(t, Teacher.HIGH_PRIORITY_TYPE);
 			
-			//remove class
-			for(SchoolClass _class : classesNeedRemove) {
-				t.removeClassFromTaughtClasses(_class);
-			}
+			removeClassFunc(t, Teacher.LOW_PRIORITY_TYPE);
 			
 			
 		}
 		
-		for(Teacher t : teachers) {
+		removeTeachersFunc(teachers);
+		
+		
+		resetData();
+	}
+    
+    private void removeClassFunc(Teacher t, int priority) {
+    	
+    	for(SchoolClass _class : t.getClassesTeaching(priority)) {
+
+			if(_class.getRemainingLessonPerWeek() <= 0) {
+				
+				classesNeedRemove.add(_class);
+				
+			}
+		}
+		
+		for(SchoolClass _class : classesNeedRemove) {
+			t.removeClassFromTaughtClasses(_class);
+		}
+		
+    }
+    
+    private void removeTeachersFunc(ArrayList<Teacher> teachers) {
+    	
+    	for(Teacher t : teachers) {
 			
 			boolean isTeacherHavingNoLessons = t.getClassesTeaching(Teacher.LOW_PRIORITY_TYPE).size() == 0 &&
 												t.getClassesTeaching(Teacher.HIGH_PRIORITY_TYPE).size() == 0;
@@ -47,10 +62,7 @@ public class RemoveTeacherWhoHasEnoughLessonsSystem {
 			
 			teachers.remove(t);
 		}
-		
-		resetData();
-	}
-    
+    }
     
     
     private void resetData() {

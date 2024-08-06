@@ -1,5 +1,10 @@
+import java.util.TreeMap;
 
 public class FormatDisplayAndExchangeData {
+	
+	private static FormatDisplayAndExchangeData instance;
+	
+	private final TreeMap<String, Teacher> nameTeacherToTeacherObject = new TreeMap<String, Teacher>();
 
 	public static String getLessonDisplayFormat(String teacherName, String specialityName) {
 		return teacherName + "-" + specialityName;
@@ -11,5 +16,31 @@ public class FormatDisplayAndExchangeData {
 		
 		return teacherName.trim();
 	}
+	
+	private FormatDisplayAndExchangeData() {
+		
+		for(Teacher teacher : SchoolInformations.getInstance().getCurrentTeacherList()) {
+			nameTeacherToTeacherObject.put(teacher.getNAME(), teacher);
+		}
+	}
+	
+	
+	
+	public Teacher getTeacherObjectByOwnerName(String teacherName) {
+		
+		return nameTeacherToTeacherObject.get(teacherName);
+		
+	}
+
+	public static FormatDisplayAndExchangeData getInstance() {
+		
+		if(instance == null) {
+			instance = new FormatDisplayAndExchangeData();
+		}
+		
+		return instance;
+	}
+	
+
 		
 }

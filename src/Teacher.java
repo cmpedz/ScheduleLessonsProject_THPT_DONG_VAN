@@ -132,7 +132,7 @@ public class Teacher {
 	
 	
 	
-	public int getSumLessonsTeachPerPriorityType() {
+	public int getSumLessonsTeach() {
 		return sumLessonsTeachPerPriorityType;
 	}
 	
