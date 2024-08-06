@@ -14,8 +14,7 @@ public class CheckingIsExpectedLesson extends ArrangeLessonConditionWithIndex{
 		ArrayList<Integer> lessonsExpectedNotTeaching = teacher.getLessonsExpectedNotTeaching();
 		
 		if(lessonsExpectedNotTeaching == null) return true;
-		
-		System.out.println("Current Index : " + teacher.getCurrentDayIndex());
+	
 		
 		for(Integer lesson : lessonsExpectedNotTeaching) {
 			if(lesson == indexLesson) {

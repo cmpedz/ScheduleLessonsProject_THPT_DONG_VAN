@@ -22,6 +22,8 @@ public class Teacher {
 	private ArrayList<ArrayList<SchoolClass>> classesTeaching = new ArrayList<ArrayList<SchoolClass>>();
 	
 	private int sumLessonsTeachPerPriorityType = 0;
+	
+	private int leftOverWorkingDays = 0; 
 
 	public Teacher(String name, String group, String dayOff) {
 		
@@ -133,15 +135,43 @@ public class Teacher {
 	public int getSumLessonsTeachPerPriorityType() {
 		return sumLessonsTeachPerPriorityType;
 	}
+	
+	public void decreaseSumLessonsTeach(int quantities) {
+		
+		this.sumLessonsTeachPerPriorityType -= quantities;
+	}
 
 	public int getAverageLessonsTeachEachDay() {
 		
-		int maxWorkingDays = 5;
+		if(leftOverWorkingDays <= 0) {
+			leftOverWorkingDays = 1;
+		}
+
+		int averageLessonsTaughtEachDay = sumLessonsTeachPerPriorityType/ leftOverWorkingDays;
 		
-		int averageLessonsTaughtEachDay = sumLessonsTeachPerPriorityType/ maxWorkingDays;
+		if(averageLessonsTaughtEachDay == 0) {
+			
+			averageLessonsTaughtEachDay = sumLessonsTeachPerPriorityType;
+			
+		}
+		
+		System.out.println(NAME + " sumLessons : " + sumLessonsTeachPerPriorityType + ", avarage :" + averageLessonsTaughtEachDay);
 		
 		return averageLessonsTaughtEachDay;
 	}
+
+	public int getLeftOverWorkingDays() {
+		return leftOverWorkingDays;
+	}
+
+
+
+
+	public void setLeftOverWorkingDays(int leftOverWorkingDays) {
+		this.leftOverWorkingDays = leftOverWorkingDays;
+	}
+
+
 
 
 	@Override

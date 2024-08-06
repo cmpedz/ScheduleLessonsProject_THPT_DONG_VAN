@@ -10,5 +10,7 @@ public interface IArrangeLessonConditionsContainer {
 	public int checkSatisfiedConditionsWithIndex(Teacher teacher, SchoolClass _class);
 	
 	public boolean checkSatisfiedConditionsWithoutIndex(Teacher teacher, SchoolClass _class);
+	
+	public void resetData();
 
 }

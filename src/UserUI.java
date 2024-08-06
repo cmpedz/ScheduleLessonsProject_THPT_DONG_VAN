@@ -14,20 +14,6 @@ public class UserUI {
 		for(Teacher teacher : iSchoolInformations.getCurrentTeacherList()) {
 			s.addTeacherIntoList(teacher);
 			
-			System.out.println();
-			
-			System.out.println(teacher.getNAME());
-			
-			System.out.println("check sum lessons teach :" 
-			+ "High :" + teacher.getSumLessonsTeachPerPriorityType()
-			+ "Low :" + teacher.getSumLessonsTeachPerPriorityType());
-			
-			System.out.println("check average lessons teach :" 
-					+ "High :" + teacher.getAverageLessonsTeachEachDay()
-					+ "Low :" + teacher.getAverageLessonsTeachEachDay());
-			
-			System.out.println();
-			
 			
 		}
 		

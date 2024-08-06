@@ -1,5 +1,4 @@
 
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class ArrangeLessonSystem { 
@@ -27,6 +26,7 @@ public class ArrangeLessonSystem {
 	}
 	
 	
+	public IArrangeLessonConditionsContainer getConditionsContainer() { return this.conditionsContainer; }
 	
 	private void addingConditionsForArrangeSystem() {
 		// TODO Auto-generated method stub
@@ -48,8 +48,6 @@ public class ArrangeLessonSystem {
 		
 			
 	}
-	
-	
 
 	public void addLesson(SchoolClass _class, Teacher teacher) {
 		
@@ -66,6 +64,9 @@ public class ArrangeLessonSystem {
 			
 			scheduleTable.get(className)[indexNeedAdd] = 
 					FormatDisplayAndExchangeData.getLessonDisplayFormat(teacher.getNAME(), speciality.getName());
+			
+			int quantitiesLessonsAdded = 1;
+			teacher.decreaseSumLessonsTeach(quantitiesLessonsAdded);
 			
 			_class.setRemainingLessonPerWeek(_class.getRemainingLessonPerWeek() - 1);
 			

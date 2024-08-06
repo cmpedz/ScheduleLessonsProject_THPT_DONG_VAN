@@ -12,6 +12,8 @@ public class ScheduleEachWeek {
 	
 	private SchoolInformations schInformations = SchoolInformations.getInstance();
 	
+	public static final int MAX_REPEAT = 2;
+	
 	public ScheduleEachWeek() {
 		super();
 		
@@ -21,15 +23,28 @@ public class ScheduleEachWeek {
 		
 	}
 	
+	
+	
 	public void arrangeLessons() {
 		
-		for(int i = 0; i < Teacher.MAX_PRIORITY_TYPES; i++) {
+		int repeatQuantities = 0;
+		
+		while(repeatQuantities < MAX_REPEAT && teachers.size() != 0) {
 			
-			arrangeLessonsEachPriorityType(i);
+			resetDataForSomeConditions();
 			
+			for(int i = 0; i < Teacher.MAX_PRIORITY_TYPES; i++) {
+				
+				arrangeLessonsEachPriorityType(i);
+				
+			}
+			
+			arrangeLowPriorityLessonsIntoAfternoon();
+			
+			repeatQuantities ++;
 		}
 		
-		arrangeLowPriorityLessonsIntoAfternoon();
+		
 		
 		System.out.println("check available leftover lessons : ");
 		
@@ -52,6 +67,16 @@ public class ScheduleEachWeek {
 		}
 	}
 	
+	private void resetDataForSomeConditions() {
+		// TODO Auto-generated method stub
+		for(ScheduleEachDay schADay : scheduleEachDays) {
+			schADay.getArrangeLessonSystem().getConditionsContainer().resetData();
+		}
+		
+	}
+
+
+
 	private void arrangeLowPriorityLessonsIntoAfternoon() {
 		
 		for(Teacher teacher : teachers) {
@@ -72,11 +97,15 @@ public class ScheduleEachWeek {
 		
 		int index = 0;
 		
+		int leftOverWorkingDays = 5;
+		
 		for(ScheduleEachDay s : scheduleEachDays) {
 			
 			removeTeacherSystem.removeTeacherWhoMeetLessonsQuantities(teachers, priority);
 			
 			for(int i=0; i < teachers.size(); i++) {
+				
+				teachers.get(i).setLeftOverWorkingDays(leftOverWorkingDays);
 				
 				String currentDay = schInformations.getDayWorkingList().get(index);
 				
@@ -93,6 +122,7 @@ public class ScheduleEachWeek {
 			}
 			
 			index++;
+			leftOverWorkingDays --;
 		}
 		
 	}

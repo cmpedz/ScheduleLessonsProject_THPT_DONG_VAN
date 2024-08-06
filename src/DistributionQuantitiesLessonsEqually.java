@@ -1,6 +1,7 @@
 import java.util.TreeMap;
 
-public class DistributionQuantitiesLessonsEqually extends ArrangeLessonConditionWithoutIndex{
+public class DistributionQuantitiesLessonsEqually extends ArrangeLessonConditionWithoutIndex 
+												 implements IResetDataFunction{
 	
 	private TreeMap<String, Integer> lessonsTaughtEachDay = new TreeMap<String, Integer>();
 	
@@ -44,6 +45,15 @@ public class DistributionQuantitiesLessonsEqually extends ArrangeLessonCondition
 		int lessonsTaughtEachDayAfterIncreased = lessonsTaughtEachDay.get(teacherName) + 1;
 		
 		lessonsTaughtEachDay.put(teacherName, lessonsTaughtEachDayAfterIncreased);
+		
+	}
+
+	@Override
+	public void resetData() {
+		// TODO Auto-generated method stub
+		for(String teacherName : lessonsTaughtEachDay.keySet()) {
+			lessonsTaughtEachDay.put(teacherName, 0);
+		}
 		
 	}
 

@@ -7,7 +7,7 @@ public class ScheduleEachDay {
 	
 	private final TreeMap<String, String[]> scheduleTable = new TreeMap<String, String[]>();
 	
-	private ArrangeLessonSystem arrangeLesson;
+	private ArrangeLessonSystem arrangeLessonSystem;
 	
 	private ISchoolInformations iSchoolInformations = SchoolInformations.getInstance();
 	
@@ -29,12 +29,18 @@ public class ScheduleEachDay {
 			}
 		}
 		
-		this.arrangeLesson = new ArrangeLessonSystem(scheduleTable);
+		this.arrangeLessonSystem = new ArrangeLessonSystem(scheduleTable);
 	}
 	
 	
 	public TreeMap<String, String[]> getScheduleTable() {
 		return scheduleTable;
+	}
+	
+	public ArrangeLessonSystem getArrangeLessonSystem() {
+		
+		return this.arrangeLessonSystem;
+		
 	}
 
 	
@@ -44,7 +50,7 @@ public class ScheduleEachDay {
 				
 				for(int i = 0; i < _class.getSpeciality().getMaxContinuesLessonCanTeach() && 
 						_class.getRemainingLessonPerWeek() > 0; i++) {
-					this.arrangeLesson.addLesson(_class, t);
+					this.arrangeLessonSystem.addLesson(_class, t);
 				}
 					
 			}

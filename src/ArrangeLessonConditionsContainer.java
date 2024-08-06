@@ -14,6 +14,8 @@ public class ArrangeLessonConditionsContainer implements IArrangeLessonCondition
 	private ArrayList<ArrayList<ArrangeLessonCondition>> conditionTypes
 							= new ArrayList<ArrayList<ArrangeLessonCondition>>();
 	
+	private ArrayList<IResetDataFunction> conditionsNeedReseting = new ArrayList<IResetDataFunction>();
+	
 	public ArrangeLessonConditionsContainer() {
 		
 		for(int i = 0; i < MAX_TYPE_CONDITIONS; i++) {
@@ -42,6 +44,14 @@ public class ArrangeLessonConditionsContainer implements IArrangeLessonCondition
 		// TODO Auto-generated method stub
 		
 		conditionTypes.get(condition.getConditionType()).add(condition);
+		
+		if(condition instanceof IResetDataFunction) {
+			System.out.println("has a condition need reseting");
+			
+			IResetDataFunction aCondition = (IResetDataFunction) condition;
+			
+			this.conditionsNeedReseting.add( aCondition );
+		}
 		
 	}
 
@@ -163,4 +173,11 @@ public class ArrangeLessonConditionsContainer implements IArrangeLessonCondition
 		return true;
 		
 	}
+	
+	public void resetData() {
+		for(IResetDataFunction reCondition : conditionsNeedReseting) {
+			reCondition.resetData();
+		}
+	}
+	
 }
