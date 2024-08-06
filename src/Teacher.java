@@ -154,8 +154,7 @@ public class Teacher {
 			averageLessonsTaughtEachDay = sumLessonsTeachPerPriorityType;
 			
 		}
-		
-		System.out.println(NAME + " sumLessons : " + sumLessonsTeachPerPriorityType + ", avarage :" + averageLessonsTaughtEachDay);
+	
 		
 		return averageLessonsTaughtEachDay;
 	}

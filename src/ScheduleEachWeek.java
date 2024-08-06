@@ -1,10 +1,15 @@
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeMap;
+
 
 public class ScheduleEachWeek {
 	
 	public static final int MAX_QUANTITIES_DAY_WORKING = 6;
 	
 	private final ScheduleEachDay[] scheduleEachDays = new ScheduleEachDay[MAX_QUANTITIES_DAY_WORKING];
+	
+	private LessonsTaughtEachTeacherStorage lessonsTaughtEachTeacherStorage = new LessonsTaughtEachTeacherStorage();
 	
 	private ArrayList<Teacher> teachers = new ArrayList<Teacher>();
 	
@@ -18,8 +23,12 @@ public class ScheduleEachWeek {
 		super();
 		
 		for( int i = 0; i < scheduleEachDays.length; i++) {
+			
 			scheduleEachDays[i] = new ScheduleEachDay();
+			
 		}
+		
+		
 		
 	}
 	
@@ -31,7 +40,20 @@ public class ScheduleEachWeek {
 		
 		while(repeatQuantities < MAX_REPEAT && teachers.size() != 0) {
 			
-			resetDataForSomeConditions();
+			int dayWorkingIndex = 0;
+			
+			for(ScheduleEachDay schADay : scheduleEachDays) {
+				
+				resetDataForSomeConditions(schADay);
+				
+				lessonsTaughtEachTeacherStorage.saveLessonsTaughtEachTeacherIntoStorage(schADay, dayWorkingIndex);
+				
+				dayWorkingIndex ++;
+				
+			}
+			
+			lessonsTaughtEachTeacherStorage.checkData();
+			
 			
 			for(int i = 0; i < Teacher.MAX_PRIORITY_TYPES; i++) {
 				
@@ -46,32 +68,17 @@ public class ScheduleEachWeek {
 		
 		
 		
-		System.out.println("check available leftover lessons : ");
+		printLeftOverLessons();
 		
-		for(Teacher t : teachers) {
-			
-			System.out.println("=========================");
-			
-			System.out.println(t.getNAME());
-			
-			for(int i = 0; i < 2 ; i++) {
-				for(SchoolClass c : t.getClassesTeaching(i)) {
-					System.out.println("class name : " + c.getName());
-					System.out.println("speciality name : " + c.getSpeciality().getName());
-					System.out.println("leftover lessons : " + c.getRemainingLessonPerWeek());
-				}
-			}
-			
-			System.out.println("=========================");
-			
-		}
+		System.out.println("check quantities lesson taught each teacher :");
+		
 	}
 	
-	private void resetDataForSomeConditions() {
-		// TODO Auto-generated method stub
-		for(ScheduleEachDay schADay : scheduleEachDays) {
+
+	
+	private void resetDataForSomeConditions(ScheduleEachDay schADay) {
+		
 			schADay.getArrangeLessonSystem().getConditionsContainer().resetData();
-		}
 		
 	}
 
@@ -133,6 +140,29 @@ public class ScheduleEachWeek {
 
 	public void addTeacherIntoList(Teacher t) {
 		teachers.add(t);
+	}
+	
+	public void printLeftOverLessons() {
+		
+		System.out.println("check available leftover lessons : ");
+		
+		for(Teacher t : teachers) {
+			
+			System.out.println("=========================");
+			
+			System.out.println(t.getNAME());
+			
+			for(int i = 0; i < 2 ; i++) {
+				for(SchoolClass c : t.getClassesTeaching(i)) {
+					System.out.println("class name : " + c.getName());
+					System.out.println("speciality name : " + c.getSpeciality().getName());
+					System.out.println("leftover lessons : " + c.getRemainingLessonPerWeek());
+				}
+			}
+			
+			System.out.println("=========================");
+			
+		}
 	}
 		
 	

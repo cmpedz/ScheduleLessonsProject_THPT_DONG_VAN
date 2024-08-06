@@ -1,5 +1,5 @@
 
-public class Pairs<T, K> {
+public class Pairs<T, K>{
 	
 	private T value1;
 	
@@ -25,5 +25,8 @@ public class Pairs<T, K> {
 	public void setValue2(K v2) {
 		this.value2 = v2;
 	}
+
+	
+	
 	
 }

@@ -49,11 +49,13 @@ public class ArrangeLessonSystem {
 			
 	}
 
-	public void addLesson(SchoolClass _class, Teacher teacher) {
+	public void addLesson(SchoolClass _class, Teacher teacher, TreeMap<String, Integer> lessonsTaughtEachTeacher) {
 		
 		boolean canAddClass = conditionsContainer.checkSatisfiedConditionsWithoutIndex(teacher, _class);
 		
 		int indexNeedAdd = conditionsContainer.checkSatisfiedConditionsWithIndex(teacher, _class);
+		
+		String teacherName = teacher.getNAME();
 		
 		
 		if(canAddClass && indexNeedAdd != ArrangeLessonConditionsContainer.NOT_FOUND_LESSON) {
@@ -71,6 +73,10 @@ public class ArrangeLessonSystem {
 			_class.setRemainingLessonPerWeek(_class.getRemainingLessonPerWeek() - 1);
 			
 			conditionsContainer.updateDataForCondition();
+			
+			int currentQuantitiesLessonsTaught = lessonsTaughtEachTeacher.get(teacherName);
+			
+			lessonsTaughtEachTeacher.put(teacherName, currentQuantitiesLessonsTaught + 1);
 			
 		}
 			
