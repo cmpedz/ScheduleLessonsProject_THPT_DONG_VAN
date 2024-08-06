@@ -34,6 +34,46 @@ public class LessonsTaughtEachTeacherStorage {
 		
 	}
 	
+	public void sortDaysRelyOnQuantitiesLessonItHas() {
+		
+		for(String teacherName : lessonsTaughtEachDayEachTeacher.keySet()) {
+			
+			ArrayList<QuantitiesLessonsTaughtPerDay> quantitiesLessonsTaughtPerDays 
+			 = lessonsTaughtEachDayEachTeacher.get(teacherName);
+			
+			for(int i = 0; i <  quantitiesLessonsTaughtPerDays.size(); i++) {
+				
+				int assessedIndex = i;
+				
+				for(int j = i - 1; j >= 0; j--) {
+					
+					QuantitiesLessonsTaughtPerDay evaluatedObject = quantitiesLessonsTaughtPerDays.get(assessedIndex);
+					
+					if(evaluatedObject.getValue2() < quantitiesLessonsTaughtPerDays.get(j).getValue2()) {
+						
+						swapPositionOfDayWorking(quantitiesLessonsTaughtPerDays, assessedIndex, j);
+						
+						assessedIndex = j;
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	private void swapPositionOfDayWorking(ArrayList<QuantitiesLessonsTaughtPerDay> qList, int index1, int index2) {
+		
+		QuantitiesLessonsTaughtPerDay save = qList.get(index1);
+		
+		qList.set(index1, qList.get(index2));
+		
+		qList.set(index2, save);
+		
+	}
+	
 	public void saveLessonsTaughtEachTeacherIntoStorage(ScheduleEachDay schADay, int dayWorkingIndex) {
 		
 		

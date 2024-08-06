@@ -52,6 +52,8 @@ public class ScheduleEachWeek {
 				
 			}
 			
+			lessonsTaughtEachTeacherStorage.sortDaysRelyOnQuantitiesLessonItHas();
+			
 			lessonsTaughtEachTeacherStorage.checkData();
 			
 			
