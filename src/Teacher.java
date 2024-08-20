@@ -24,13 +24,22 @@ public class Teacher {
 	private int sumLessonsTeachPerPriorityType = 0;
 	
 	private int leftOverWorkingDays = 0; 
+	
+	public static final String Error_Group = "Tổ của giáo viên không hợp lệ|";
+	
+	public static final String Error_DayOff = "Ngày nghỉ của giáo viên không hợp lệ|";
 
-	public Teacher(String name, String group, String dayOff) {
+	public Teacher(String name, String group, String dayOff) throws Exception {
 		
 		super();
+		
 		this.NAME = name;
 		this.GROUP = group;
 		this.dayOff = dayOff;
+		
+		if(!checkValidInfos().equals("")) {
+			throw new Exception(checkValidInfos());
+		}
 		
 		for(int i = 0; i< MAX_PRIORITY_TYPES; i++) {
 			classesTeaching.add(new ArrayList<SchoolClass>());
@@ -43,6 +52,25 @@ public class Teacher {
 		
 		
 		
+	}
+	
+	private String checkValidInfos() {
+		
+		boolean isGroupExisted = SchoolInformations.getInstance().getGroupsList().contains(GROUP);
+		
+		boolean isDayOffExisted = SchoolInformations.getInstance().getDayWorkingList().contains(dayOff);
+		
+		String error = "";
+		
+		if(!isDayOffExisted) {
+			error +=  Error_DayOff;
+		}
+		
+		if(!isGroupExisted) {
+			error +=  Error_Group;
+		}
+		
+		return error;
 	}
 
 	
@@ -170,19 +198,6 @@ public class Teacher {
 		this.leftOverWorkingDays = leftOverWorkingDays;
 	}
 
-
-
-
-	@Override
-	public String toString() {
-		String displayText = "\n" + "Teacher Name: " + NAME + "\n" +
-							 "Group: " + GROUP + "\n" +
-							 "Dayoff: " + dayOff + "\n" +
-							 "Lesson Avoid Teaching: " + lessonsExpectedNotTeaching + "\n" +
-							 "====== Current Classes Taught ======" + "\n" + "\n";
-		
-		return displayText;
-	}
 	
 	
 

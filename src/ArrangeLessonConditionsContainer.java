@@ -46,7 +46,6 @@ public class ArrangeLessonConditionsContainer implements IArrangeLessonCondition
 		conditionTypes.get(condition.getConditionType()).add(condition);
 		
 		if(condition instanceof IResetDataFunction) {
-			System.out.println("has a condition need reseting");
 			
 			IResetDataFunction aCondition = (IResetDataFunction) condition;
 			

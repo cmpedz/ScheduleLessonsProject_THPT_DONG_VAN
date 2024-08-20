@@ -14,7 +14,7 @@ public class InsertDataFromTeacherTableManager extends InsertDataFromEachTable{
 	}
 
 	@Override
-	public void getDataEachRow(Row row) {
+	public void getDataEachRow(Row row) throws Exception{
 		
 		int teacherDataCell = 0;
 		String teacherName = row.getCell(teacherDataCell).getStringCellValue();

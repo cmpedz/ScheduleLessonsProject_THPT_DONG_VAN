@@ -17,7 +17,7 @@ public class ScheduleEachWeek {
 	
 	private SchoolInformations schInformations = SchoolInformations.getInstance();
 	
-	public static final int MAX_REPEAT = 2;
+	public static final int MAX_REPEAT = 5;
 	
 	public ScheduleEachWeek() {
 		super();
@@ -44,6 +44,8 @@ public class ScheduleEachWeek {
 			
 			removeTeacherSystem.removeTeacherWhoMeetLessonsQuantities(teachers);
 			
+			lessonsTaughtEachTeacherStorage.resetData();
+			
 			for(ScheduleEachDay schADay : scheduleEachDays) {
 				
 				resetDataForSomeConditions(schADay);
@@ -54,7 +56,7 @@ public class ScheduleEachWeek {
 				
 			}
 			
-			lessonsTaughtEachTeacherStorage.sortDaysRelyOnQuantitiesLessonItHas();
+			lessonsTaughtEachTeacherStorage.insertionSortDaysRelyOnQuantitiesLessonItHas();
 			
 			//lessonsTaughtEachTeacherStorage.checkData();
 			
@@ -68,10 +70,14 @@ public class ScheduleEachWeek {
 			arrangeLowPriorityLessonsIntoAfternoon();
 			
 			repeatQuantities ++;
+			
+			System.out.println("-----------------" + repeatQuantities + "-------------------------");
+			printCurrentLessonsTaughtPerTeacher();
+			System.out.println("------------------------------------------------------------------");
 		}
 		
 		
-		printCurrentLessonsTaughtPerTeacher();
+		
 		//printLeftOverLessons();
 		
 	}

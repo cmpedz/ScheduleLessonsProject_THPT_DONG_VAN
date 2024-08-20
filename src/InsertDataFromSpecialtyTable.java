@@ -22,6 +22,7 @@ public class InsertDataFromSpecialtyTable extends InsertDataFromEachTable {
 		Speciality speciality = new Speciality(specialtyName, maxLessonContinues, isInMorning, isMainCourse, group, priority);
 		
 		schoolInformations.getSpecialtyList().put(specialtyName, speciality);
+
 	}
 
 }

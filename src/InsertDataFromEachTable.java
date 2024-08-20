@@ -18,12 +18,18 @@ public abstract class InsertDataFromEachTable {
 			
 			Row currentRow = sheet.getRow(i); 
 			
-			getDataEachRow(currentRow);
+			try {
+				getDataEachRow(currentRow);
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("row error : " + currentRow.getRowNum());
+			}
+			
 		}
 		
 	}
 	
-	public abstract void getDataEachRow(Row row);
+	public abstract void getDataEachRow(Row row) throws Exception;
 
 	public int getFirstRowTable() {
 		return firstRowTable;

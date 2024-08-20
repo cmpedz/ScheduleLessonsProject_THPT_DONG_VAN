@@ -34,7 +34,7 @@ public class LessonsTaughtEachTeacherStorage {
 		
 	}
 	
-	public void sortDaysRelyOnQuantitiesLessonItHas() {
+	public void insertionSortDaysRelyOnQuantitiesLessonItHas() {
 		
 		for(String teacherName : lessonsTaughtEachDayEachTeacher.keySet()) {
 			
@@ -74,6 +74,19 @@ public class LessonsTaughtEachTeacherStorage {
 		
 	}
 	
+	public void resetData() {
+		for(String teacherName : lessonsTaughtEachDayEachTeacher.keySet()) {
+			
+			ArrayList<QuantitiesLessonsTaughtPerDay> quantitiesLessonsTaughtInWeek = 
+					lessonsTaughtEachDayEachTeacher.get(teacherName);
+			
+			for(QuantitiesLessonsTaughtPerDay lessonsPerDay : quantitiesLessonsTaughtInWeek) {
+				lessonsPerDay.setQuantitiesLessons(0);
+			}
+			
+		}
+	}
+	
 	public void saveLessonsTaughtEachTeacherIntoStorage(ScheduleEachDay schADay, int dayWorkingIndex) {
 		
 		
@@ -96,7 +109,7 @@ public class LessonsTaughtEachTeacherStorage {
 			
 		}
 		
-		System.out.println("Save Data");
+		
 		
 		
 		
