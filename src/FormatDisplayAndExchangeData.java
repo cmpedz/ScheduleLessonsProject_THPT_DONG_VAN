@@ -17,6 +17,13 @@ public class FormatDisplayAndExchangeData {
 		return teacherName.trim();
 	}
 	
+	public static String separateSpecialtyFromALessonDisplayFormat(String formatString) {
+		
+		String specialty = formatString.split("-")[1];
+		
+		return specialty.trim();
+	}
+	
 	private FormatDisplayAndExchangeData() {
 		
 		for(Teacher teacher : SchoolInformations.getInstance().getCurrentTeacherList()) {

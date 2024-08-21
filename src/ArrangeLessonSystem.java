@@ -48,6 +48,8 @@ public class ArrangeLessonSystem {
 		
 		conditionsContainer.addNewCondition(new isClassHavingContinuousLessons(scheduleTable));
 		
+		conditionsContainer.addNewCondition(new isOverComeMaxQuantitiesContinuesLessonPerSpecialty(scheduleTable));
+		
 			
 	}
 
