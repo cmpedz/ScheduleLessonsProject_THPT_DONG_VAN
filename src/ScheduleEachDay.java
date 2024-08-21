@@ -9,6 +9,8 @@ public class ScheduleEachDay {
 	
 	private final TreeMap<String, Integer> currentLessonsTaughtEachTeacher = new TreeMap<String, Integer>();
 	
+	private final TreeMap<String, Integer[]> currentQuantitiesLessonsEachClassHas = new TreeMap<String, Integer[]>(); 
+	
 	private ArrangeLessonSystem arrangeLessonSystem;
 	
 	private ISchoolInformations iSchoolInformations = SchoolInformations.getInstance();
@@ -29,7 +31,15 @@ public class ScheduleEachDay {
 			for(int i = 0; i < scheduleTable.get(className).length; i++) {
 				scheduleTable.get(className)[i] = DEFINE_EMPTY_VALUE;
 			}
+			
+			currentQuantitiesLessonsEachClassHas.put(className, new Integer[SchoolInformations.MAX_STUDYING_SESSIONS]);
+			
+			for(int i = 0; i < SchoolInformations.MAX_STUDYING_SESSIONS; i++) {
+				currentQuantitiesLessonsEachClassHas.get(className)[i] = 0;
+			}
 		}
+		
+		
 		
 		this.arrangeLessonSystem = new ArrangeLessonSystem(scheduleTable);
 	}
@@ -44,6 +54,17 @@ public class ScheduleEachDay {
 		return this.arrangeLessonSystem;
 		
 	}
+	
+	public void resetData() {
+		
+		for(String className : currentQuantitiesLessonsEachClassHas.keySet()) {
+			
+			for(int i = 0; i < SchoolInformations.MAX_STUDYING_SESSIONS; i++) {
+				
+				currentQuantitiesLessonsEachClassHas.get(className)[i] = 0;
+			}
+		}
+	}
 
 	
 	public void addTeacherLessonIntoScheduleTable(Teacher t, int prioritySpecialty) {
@@ -54,9 +75,33 @@ public class ScheduleEachDay {
 		
 			for(SchoolClass _class : t.getClassesTeaching(prioritySpecialty)){
 				
+				String className = _class.getName();
+				
+				boolean isInMorning = _class.getSpeciality().isInMorning();
+				
+				int indexSessions = SchoolInformations.MORNING;
+				
+				if(isInMorning) {
+					indexSessions = SchoolInformations.AFTERNOON;
+				}
+				
+				boolean isHavingLeftOverLessons = _class.getLeftOverLessonPerWeek() > 0;
+				
+				int maxLessonCanHaveEachDay = QuantitiesLessonsPerClassStorage.getInstance().getMaxLessonsCanTeachEachDay(className, isInMorning);
+				
+				boolean isOverComeMaxLessonsCanHaveEachDay = currentQuantitiesLessonsEachClassHas.get(className)[indexSessions] > maxLessonCanHaveEachDay;
+				
 				for(int i = 0; i < _class.getSpeciality().getMaxContinuesLessonCanTeach() && 
-						_class.getRemainingLessonPerWeek() > 0; i++) {
-					this.arrangeLessonSystem.addLesson(_class, t, currentLessonsTaughtEachTeacher);
+						isHavingLeftOverLessons && !isOverComeMaxLessonsCanHaveEachDay ; i++) {
+					
+					boolean isAddingSuccessfully = this.arrangeLessonSystem.addLesson(_class, t, currentLessonsTaughtEachTeacher);
+					
+					if(isAddingSuccessfully) {
+						
+						currentQuantitiesLessonsEachClassHas.get(className)[indexSessions] += 1;
+					}
+					
+					
 				}
 					
 			}

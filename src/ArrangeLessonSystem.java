@@ -51,7 +51,7 @@ public class ArrangeLessonSystem {
 			
 	}
 
-	public void addLesson(SchoolClass _class, Teacher teacher, TreeMap<String, Integer> lessonsTaughtEachTeacher) {
+	public boolean addLesson(SchoolClass _class, Teacher teacher, TreeMap<String, Integer> lessonsTaughtEachTeacher) {
 		
 		boolean canAddClass = conditionsContainer.checkSatisfiedConditionsWithoutIndex(teacher, _class);
 		
@@ -72,7 +72,7 @@ public class ArrangeLessonSystem {
 			int quantitiesLessonsAdded = 1;
 			teacher.decreaseSumLessonsTeach(quantitiesLessonsAdded);
 			
-			_class.setRemainingLessonPerWeek(_class.getRemainingLessonPerWeek() - 1);
+			_class.setLeftOverLessonPerWeek(_class.getLeftOverLessonPerWeek() - 1);
 			
 			conditionsContainer.updateDataForCondition();
 			
@@ -80,7 +80,11 @@ public class ArrangeLessonSystem {
 			
 			lessonsTaughtEachTeacher.put(teacherName, currentQuantitiesLessonsTaught + 1);
 			
+			return true;
+			
 		}
+		
+		return false;
 			
 	}
 	

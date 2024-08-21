@@ -40,16 +40,24 @@ public class InsertDataFromTeacherTableManager extends InsertDataFromEachTable{
 		// define classes taught by this teacher 
 		ArrayList<SchoolClass> classes = new ArrayList<SchoolClass>();
 		
+		boolean isInMorning = SchoolInformations.getInstance().getSpecialtyList().get(specialty).isInMorning();
+		
 		for(String className : classesTaught) {
 			
 			classes.add(new SchoolClass(className, lessonsPerWeek, lessonsPerYear, specialty));
+			
+			QuantitiesLessonsPerClassStorage.getInstance().addQuantitiesLessonsIntoStorage(className, lessonsPerWeek, isInMorning);
+			
 		}
 		
 		
 		//define teacher infos
 		Teacher teacher = new Teacher(teacherName, group, dayOff);
 		
+		
+		
 		addLessonsForTeacher(teacher, classes);
+		
 		
 		int firstDayWorkingIndex = 0;
 		
@@ -61,6 +69,7 @@ public class InsertDataFromTeacherTableManager extends InsertDataFromEachTable{
 		}
 		
 	}
+	
 	
 	private void addLessonsForTeacher(Teacher teacher, ArrayList<SchoolClass> classes) {
 		

@@ -5,7 +5,7 @@ public class SchoolClass {
 	
 	private final int lessonsPerWeek;
 	
-	private int remainingLessonPerWeek;
+	private int leftOverLessonPerWeek;
 	
 	private final int lessonPerYear;
 	
@@ -22,7 +22,7 @@ public class SchoolClass {
 		this.lessonsPerWeek = lessonsPerWeek;
 		this.lessonPerYear = lessonPerYear;
 		this.specialityName = speciality;
-		this.remainingLessonPerWeek = lessonsPerWeek;
+		this.leftOverLessonPerWeek = lessonsPerWeek;
 		
 		if(!checkValidInfors().equals("")) {
 			throw new Exception(checkValidInfors());
@@ -71,12 +71,12 @@ public class SchoolClass {
 		this.specialityName = specialityName;
 	}
 
-	public int getRemainingLessonPerWeek() {
-		return remainingLessonPerWeek;
+	public int getLeftOverLessonPerWeek() {
+		return leftOverLessonPerWeek;
 	}
 
-	public void setRemainingLessonPerWeek(int remainingLessonPerWeek) {
-		this.remainingLessonPerWeek = remainingLessonPerWeek;
+	public void setLeftOverLessonPerWeek(int leftOverLessonPerWeek) {
+		this.leftOverLessonPerWeek = leftOverLessonPerWeek;
 	}
 	
 	@Override

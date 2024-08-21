@@ -37,7 +37,7 @@ public class DistributingGroupsEqually extends ArrangeLessonConditionWithoutInde
 			
 		}
 		
-		if(quasLessonHasGroSameGroOfLessonNeedAdding >= 2 && quantitiesRemainLesson < 2) {
+		if(quasLessonHasGroSameGroOfLessonNeedAdding >= 3 && quantitiesRemainLesson < 2) {
 			return false;
 		}
 		

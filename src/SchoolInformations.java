@@ -16,6 +16,12 @@ public class SchoolInformations implements ISchoolInformations{
 	
 	private final ArrayList<Teacher> TEACHERS = new ArrayList<Teacher>();
 	
+	public static final int MAX_STUDYING_SESSIONS = 2;
+	
+	public static final int MORNING = 0;
+	
+	public static final int AFTERNOON = 1;
+	
 	public static final int MAX_LESSONS_IN_MORNING = 5;
 	
 	public static final int MAX_LESSONS_IN_AFTERNOON = 3;

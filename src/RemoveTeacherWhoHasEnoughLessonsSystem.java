@@ -28,7 +28,7 @@ public class RemoveTeacherWhoHasEnoughLessonsSystem {
     	
     	for(SchoolClass _class : t.getClassesTeaching(priority)) {
 
-			if(_class.getRemainingLessonPerWeek() <= 0) {
+			if(_class.getLeftOverLessonPerWeek() <= 0) {
 				
 				classesNeedRemove.add(_class);
 				
