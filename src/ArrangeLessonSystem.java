@@ -46,6 +46,8 @@ public class ArrangeLessonSystem {
 		
 		conditionsContainer.addNewCondition(new DistributionQuantitiesLessonsEqually());
 		
+		conditionsContainer.addNewCondition(new isClassHavingContinuousLessons(scheduleTable));
+		
 			
 	}
 

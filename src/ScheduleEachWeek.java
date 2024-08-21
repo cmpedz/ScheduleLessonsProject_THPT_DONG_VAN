@@ -67,8 +67,6 @@ public class ScheduleEachWeek {
 				
 			}
 			
-			arrangeLowPriorityLessonsIntoAfternoon();
-			
 			repeatQuantities ++;
 			
 			System.out.println("-----------------" + repeatQuantities + "-------------------------");
