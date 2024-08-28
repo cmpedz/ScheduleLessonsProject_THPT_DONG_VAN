@@ -11,13 +11,12 @@ public class ScheduleEachWeek {
 	
 	private LessonsTaughtEachTeacherStorage lessonsTaughtEachTeacherStorage = new LessonsTaughtEachTeacherStorage();
 	
-	private ArrayList<Teacher> teachers = new ArrayList<Teacher>();
+	private ArrayList<Teacher> teachers = SchoolInformations.getInstance().getCurrentTeacherList();
 	
 	private RemoveTeacherWhoHasEnoughLessonsSystem removeTeacherSystem = new RemoveTeacherWhoHasEnoughLessonsSystem();
 	
-	private SchoolInformations schInformations = SchoolInformations.getInstance();
 	
-	public static final int MAX_REPEAT = 5;
+	public static final int MAX_REPEAT = 10;
 	
 	public ScheduleEachWeek() {
 		super();
@@ -62,12 +61,7 @@ public class ScheduleEachWeek {
 			
 			//lessonsTaughtEachTeacherStorage.checkData();
 			
-			
-			for(int i = 0; i < Teacher.MAX_PRIORITY_TYPES; i++) {
-				
-				arrangeLessonsEachPriorityType(i);
-				
-			}
+			arrangeLessonsEachPriorityType();
 			
 			repeatQuantities ++;
 			
@@ -93,33 +87,23 @@ public class ScheduleEachWeek {
 	}
 
 
-
-	private void arrangeLowPriorityLessonsIntoAfternoon() {
+	
+	private void arrangeLessonsEachPriorityType() {
+		
 		
 		for(Teacher teacher : teachers) {
-			
-			ArrayList<SchoolClass> lowPriorityLessons = teacher.getClassesTeaching(Teacher.LOW_PRIORITY_TYPE);
-			
-			for(SchoolClass _class : lowPriorityLessons) {
-				_class.getSpeciality().setIsInMorning(false);
-			}
-			
-		}
-		
-		arrangeLessonsEachPriorityType(Teacher.LOW_PRIORITY_TYPE);
-		
-	}
-	
-	private void arrangeLessonsEachPriorityType(int priority) {
-		
-		
-		for(String teacherName : lessonsTaughtEachTeacherStorage.getLessonsTaughtEachDayEachTeacher().keySet()) {
-			
-			Teacher teacher = FormatDisplayAndExchangeData.getInstance().getTeacherObjectByOwnerName(teacherName);
 			
 			ArrayList<QuantitiesLessonsTaughtPerDay> workingsSchedule = lessonsTaughtEachTeacherStorage.getLessonsTaughtEachDayEachTeacher().get(teacher.getNAME());
 			
 			int leftOverWorkingDays = 5;
+			
+			if(teacher.getNAME().equals("Mã Đức Bảo")) {
+				System.out.println(teacher.getNAME());
+				System.out.println("leftover lessons :");
+				for(SchoolClass _class : teacher.getClassesTeaching()) {
+					System.out.println(_class.getName() + " has : " + _class.getLessonsPerWeek());
+				}
+			}
 			
 			
 			for(QuantitiesLessonsTaughtPerDay aWorkingDay : workingsSchedule) {
@@ -136,7 +120,7 @@ public class ScheduleEachWeek {
 					
 					teacher.setCurrentDayIndex(indexCurrentDay);
 					
-					scheduleEachDays[indexCurrentDay].addTeacherLessonIntoScheduleTable(teacher, priority);
+					scheduleEachDays[indexCurrentDay].addTeacherLessonIntoScheduleTable(teacher);
 				}
 				
 				leftOverWorkingDays--;
@@ -154,10 +138,7 @@ public class ScheduleEachWeek {
 		return scheduleEachDays;
 	}
 
-	public void addTeacherIntoList(Teacher t) {
-		teachers.add(t);
-	}
-	
+
 	public void printCurrentLessonsTaughtPerTeacher() {
 		
 		for(String teacherName : lessonsTaughtEachTeacherStorage.getLessonsTaughtEachDayEachTeacher().keySet()) {
@@ -178,13 +159,13 @@ public class ScheduleEachWeek {
 			System.out.println("leftover :" + leftOverLessons);
 			
 			if(leftOverLessons > 0) {
-				for(int i = 0; i < 2; i++) {
-					for(SchoolClass s : assessedTeacher.getClassesTeaching(i)) {
+				
+					for(SchoolClass s : assessedTeacher.getClassesTeaching()) {
 						
 							System.out.println(s.getName() + " , " + s.getSpeciality().getName());
 		
 					}
-				}
+				
 				
 			}
 			
@@ -203,13 +184,13 @@ public class ScheduleEachWeek {
 			
 			System.out.println(t.getNAME());
 			
-			for(int i = 0; i < 2 ; i++) {
-				for(SchoolClass c : t.getClassesTeaching(i)) {
+			
+				for(SchoolClass c : t.getClassesTeaching()) {
 					System.out.println("class name : " + c.getName());
 					System.out.println("speciality name : " + c.getSpeciality().getName());
 					System.out.println("leftover lessons : " + c.getLeftOverLessonPerWeek());
 				}
-			}
+			
 			
 			System.out.println("=========================");
 			

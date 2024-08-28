@@ -13,15 +13,10 @@ public class Teacher {
 	
 	private  TreeMap<String, ArrayList<Integer>>  lessonsExpectedNotTeaching = new TreeMap<String, ArrayList<Integer>>();
 	
-	public static final int MAX_PRIORITY_TYPES = 2;
 	
-	public static final int HIGH_PRIORITY_TYPE = 0;
+	private ArrayList<SchoolClass> classesTeaching = new ArrayList<SchoolClass>();
 	
-	public static final int LOW_PRIORITY_TYPE = 1;
-	
-	private ArrayList<ArrayList<SchoolClass>> classesTeaching = new ArrayList<ArrayList<SchoolClass>>();
-	
-	private int sumLessonsTeachPerPriorityType = 0;
+	private int sumLessonsTeach = 0;
 	
 	private int leftOverWorkingDays = 0; 
 	
@@ -39,10 +34,6 @@ public class Teacher {
 		
 		if(!checkValidInfos().equals("")) {
 			throw new Exception(checkValidInfos());
-		}
-		
-		for(int i = 0; i< MAX_PRIORITY_TYPES; i++) {
-			classesTeaching.add(new ArrayList<SchoolClass>());
 		}
 		
 		for(String day : SchoolInformations.getInstance().getDayWorkingList()) {
@@ -137,36 +128,33 @@ public class Teacher {
 
 
 
-	public ArrayList<SchoolClass> getClassesTeaching(int priority) {
+	public ArrayList<SchoolClass> getClassesTeaching() {
 		
-		return classesTeaching.get(priority);
+		return classesTeaching;
 	}
 
 	public void addClassTeaching(SchoolClass _class) {
 		
-		int priorityClass = _class.getSpeciality().getPriority() - 1;
 		
-		sumLessonsTeachPerPriorityType += _class.getLessonsPerWeek();
+		sumLessonsTeach += _class.getLessonsPerWeek();
 
-		this.classesTeaching.get(priorityClass).add(_class);
+		this.classesTeaching.add(_class);
 	}
 	
 	public void removeClassFromTaughtClasses(SchoolClass mClass) {
 		
-		int priority = mClass.getSpeciality().getPriority() - 1;
-		
-		this.classesTeaching.get(priority).remove(mClass);
+		this.classesTeaching.remove(mClass);
 	}
 	
 	
 	
 	public int getSumLessonsTeach() {
-		return sumLessonsTeachPerPriorityType;
+		return sumLessonsTeach;
 	}
 	
 	public void decreaseSumLessonsTeach(int quantities) {
 		
-		this.sumLessonsTeachPerPriorityType -= quantities;
+		this.sumLessonsTeach -= quantities;
 	}
 
 	public int getAverageLessonsTeachEachDay() {
@@ -175,11 +163,11 @@ public class Teacher {
 			leftOverWorkingDays = 1;
 		}
 
-		int averageLessonsTaughtEachDay = sumLessonsTeachPerPriorityType/ leftOverWorkingDays;
+		int averageLessonsTaughtEachDay = sumLessonsTeach/ leftOverWorkingDays;
 		
 		if(averageLessonsTaughtEachDay == 0) {
 			
-			averageLessonsTaughtEachDay = sumLessonsTeachPerPriorityType;
+			averageLessonsTaughtEachDay = sumLessonsTeach;
 			
 		}
 	

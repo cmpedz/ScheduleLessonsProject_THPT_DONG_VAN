@@ -46,7 +46,7 @@ public class ArrangeLessonSystem {
 		
 		conditionsContainer.addNewCondition(new DistributionQuantitiesLessonsEqually());
 		
-		conditionsContainer.addNewCondition(new isClassHavingContinuousLessons(scheduleTable));
+		conditionsContainer.addNewCondition(new isClassHavingContinuousArrangement(scheduleTable));
 		
 		conditionsContainer.addNewCondition(new isOverComeMaxQuantitiesContinuesLessonPerSpecialty(scheduleTable));
 		
@@ -72,6 +72,7 @@ public class ArrangeLessonSystem {
 					FormatDisplayAndExchangeData.getLessonDisplayFormat(teacher.getNAME(), speciality.getName());
 			
 			int quantitiesLessonsAdded = 1;
+			
 			teacher.decreaseSumLessonsTeach(quantitiesLessonsAdded);
 			
 			_class.setLeftOverLessonPerWeek(_class.getLeftOverLessonPerWeek() - 1);

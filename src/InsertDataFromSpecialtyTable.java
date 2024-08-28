@@ -9,8 +9,6 @@ public class InsertDataFromSpecialtyTable extends InsertDataFromEachTable {
 		// TODO Auto-generated method stub
 		String specialtyName = row.getCell(0).getStringCellValue();
 		
-		int priority = (int)row.getCell(1).getNumericCellValue();
-		
 		boolean isInMorning = row.getCell(2).getStringCellValue().equals(MORNING);
 		
 		int maxLessonContinues = (int)row.getCell(3).getNumericCellValue();
@@ -19,7 +17,7 @@ public class InsertDataFromSpecialtyTable extends InsertDataFromEachTable {
 		
 		String group = row.getCell(5).getStringCellValue();
 		
-		Speciality speciality = new Speciality(specialtyName, maxLessonContinues, isInMorning, isMainCourse, group, priority);
+		Speciality speciality = new Speciality(specialtyName, maxLessonContinues, isInMorning, isMainCourse, group);
 		
 		schoolInformations.getSpecialtyList().put(specialtyName, speciality);
 

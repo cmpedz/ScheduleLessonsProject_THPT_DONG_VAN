@@ -11,11 +11,7 @@ public class RemoveTeacherWhoHasEnoughLessonsSystem {
 		
 		for(Teacher t : teachers) {
 			
-			removeClassFunc(t, Teacher.HIGH_PRIORITY_TYPE);
-			
-			removeClassFunc(t, Teacher.LOW_PRIORITY_TYPE);
-			
-			
+			removeClassFunc(t);
 		}
 		
 		removeTeachersFunc(teachers);
@@ -24,9 +20,9 @@ public class RemoveTeacherWhoHasEnoughLessonsSystem {
 		resetData();
 	}
     
-    private void removeClassFunc(Teacher t, int priority) {
+    private void removeClassFunc(Teacher t) {
     	
-    	for(SchoolClass _class : t.getClassesTeaching(priority)) {
+    	for(SchoolClass _class : t.getClassesTeaching()) {
 
 			if(_class.getLeftOverLessonPerWeek() <= 0) {
 				
@@ -45,8 +41,7 @@ public class RemoveTeacherWhoHasEnoughLessonsSystem {
     	
     	for(Teacher t : teachers) {
 			
-			boolean isTeacherHavingNoLessons = t.getClassesTeaching(Teacher.LOW_PRIORITY_TYPE).size() == 0 &&
-												t.getClassesTeaching(Teacher.HIGH_PRIORITY_TYPE).size() == 0;
+			boolean isTeacherHavingNoLessons = t.getClassesTeaching().size() == 0;
 			
 			
 				

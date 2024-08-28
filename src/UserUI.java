@@ -9,14 +9,6 @@ public class UserUI {
 		
 		ScheduleEachWeek s = new ScheduleEachWeek();
 		
-		ISchoolInformations iSchoolInformations = SchoolInformations.getInstance();
-		
-		for(Teacher teacher : iSchoolInformations.getCurrentTeacherList()) {
-			s.addTeacherIntoList(teacher);
-			
-			
-		}
-		
 		s.arrangeLessons();
 		
 		ExcelIOManagement.getInstance().displayAdjustedDataIntoExcel(s);

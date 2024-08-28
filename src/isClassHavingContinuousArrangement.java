@@ -1,8 +1,8 @@
 import java.util.TreeMap;
 
-public class isClassHavingContinuousLessons extends ArrangeLessonConditionWithIndex {
+public class isClassHavingContinuousArrangement extends ArrangeLessonConditionWithIndex {
 
-	public isClassHavingContinuousLessons(TreeMap<String, String[]> scheduleTable) {
+	public isClassHavingContinuousArrangement(TreeMap<String, String[]> scheduleTable) {
 		super(scheduleTable);
 		// TODO Auto-generated constructor stub
 	}

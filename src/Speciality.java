@@ -5,8 +5,6 @@ public class Speciality {
 	
 	private final int MAX_CONTINUES_LESSONS_CAN_TEACH;
 	
-	private final int PRIORITY;
-	
 	private final String NAME;
 	
 	private final boolean IS_MAIN_COURSE;
@@ -15,11 +13,9 @@ public class Speciality {
 	
 
 	public Speciality( String nAME, int mAX_CONTINUES_LESSONS_CAN_TEACH, boolean iS_IN_MORNING,
-			boolean iS_MAIN_COURSE, String gROUP, int pRIORITY) {
+			boolean iS_MAIN_COURSE, String gROUP) {
 		
 		super();
-		
-		this.PRIORITY = pRIORITY;
 		
 		isInMorning = iS_IN_MORNING;
 		
@@ -59,10 +55,7 @@ public class Speciality {
 		return GROUP;
 	}
 	
-	public int getPriority() {
-		return this.PRIORITY;
-	}
-	
+
 	@Override
 	public String toString() {
 		
@@ -70,8 +63,7 @@ public class Speciality {
 			   "Max Lesson Continues: " + MAX_CONTINUES_LESSONS_CAN_TEACH + "\n" +
 			   "Is In Morning: " + isInMorning + "\n" +
 			   "Is Main Course: " + IS_MAIN_COURSE + "\n" +
-			   "Group: " + GROUP + "\n" +
-			   "Priority: " + PRIORITY + "\n";
+			   "Group: " + GROUP + "\n" ;
 	}
 
 	
