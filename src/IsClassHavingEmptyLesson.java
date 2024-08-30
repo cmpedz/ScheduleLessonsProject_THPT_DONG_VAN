@@ -14,7 +14,7 @@ public class IsClassHavingEmptyLesson extends ArrangeLessonConditionWithoutIndex
 		
 		int quantitiesCurrentLessonsHas = 0;
 		
-		boolean isInMorning = _class.getSpeciality().isInMorning();
+		boolean isInMorning = _class.getCourse().isInMorning();
 		
 		int maxLessonHas = 0;
 		
@@ -66,7 +66,7 @@ public class IsClassHavingEmptyLesson extends ArrangeLessonConditionWithoutIndex
 		// increase current quantities lesson
 		String className = _class.getName();
 		
-		boolean isInMorning = _class.getSpeciality().isInMorning();
+		boolean isInMorning = _class.getCourse().isInMorning();
 		
 		Integer[] currentLessonQuantities = this.quantitiesLessonEachClass.get(className);
 		

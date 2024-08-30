@@ -7,7 +7,13 @@ public class UserUI {
 		
 		ExcelIOManagement.getInstance().insertDataFromExcel();
 		
-		ScheduleEachWeek s = new ScheduleEachWeek();
+		ScheduleEachWeek s = null;
+		try {
+			s = new ScheduleEachWeek();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		s.arrangeLessons();
 		

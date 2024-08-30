@@ -14,9 +14,9 @@ public class CheckIsHavingMainCourse extends ArrangeLessonConditionWithoutIndex{
 		
 		boolean isCurrentClassHavingMainCourse = currentClassInfors.getValue2();
 		
-		boolean isCourseAddedDistinctFromCurrentMainCourse = !_class.getSpeciality().getName().equals(currentClassInfors.getValue1());
+		boolean isCourseAddedDistinctFromCurrentMainCourse = !_class.getCourse().getName().equals(currentClassInfors.getValue1());
 		
-		if(isCurrentClassHavingMainCourse && _class.getSpeciality().isIS_MAIN_COURSE() &&
+		if(isCurrentClassHavingMainCourse && _class.getCourse().isIS_MAIN_COURSE() &&
 				isCourseAddedDistinctFromCurrentMainCourse) {
 			return false;
 		}
@@ -39,7 +39,7 @@ public class CheckIsHavingMainCourse extends ArrangeLessonConditionWithoutIndex{
 		// specify that current lesson has main course
 		String className = _class.getName();
 		
-		Speciality speciality = _class.getSpeciality();
+		Course speciality = _class.getCourse();
 		
 		TreeMap<String, Pairs<String, Boolean>> isHavingMainCourse = getIsHavingMainCourse();
 		

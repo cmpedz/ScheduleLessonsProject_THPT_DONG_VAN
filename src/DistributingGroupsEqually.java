@@ -16,7 +16,7 @@ public class DistributingGroupsEqually extends ArrangeLessonConditionWithoutInde
 		// TODO Auto-generated method stub
 		String className = this._class.getName();
 		
-		Speciality lessonNeedAdding = this._class.getSpeciality();
+		Course lessonNeedAdding = this._class.getCourse();
 	
 		int quasLessonHasGroSameGroOfLessonNeedAdding = 0;
 		
@@ -68,7 +68,7 @@ public class DistributingGroupsEqually extends ArrangeLessonConditionWithoutInde
 		// TODO Auto-generated method stub
 		String className = _class.getName();
 		
-		String groupOfLessonAdded = _class.getSpeciality().getGROUP();
+		String groupOfLessonAdded = _class.getCourse().getGROUP();
 		
 		for(int i =0; i < this.currentGroups.size(); i++) {
 			

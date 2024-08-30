@@ -3,7 +3,7 @@ import java.util.Map;
 
 public interface ISchoolInformations {
 
-	public Map<String, Speciality> getSpecialtyList();
+	public Map<String, Course> getSpecialtyList();
 	
 	public ArrayList<String> getGroupsList();
 	

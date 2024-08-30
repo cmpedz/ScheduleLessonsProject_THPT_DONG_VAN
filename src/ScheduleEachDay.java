@@ -77,7 +77,7 @@ public class ScheduleEachDay {
 				
 				String className = _class.getName();
 				
-				boolean isInMorning = _class.getSpeciality().isInMorning();
+				boolean isInMorning = _class.getCourse().isInMorning();
 				
 				int indexSessions = SchoolInformations.MORNING;
 				
@@ -89,7 +89,7 @@ public class ScheduleEachDay {
 				
 				boolean isOverComeMaxLessonsCanHaveEachDay = currentQuantitiesLessonsEachClassHas.get(className)[indexSessions] > maxLessonCanHaveEachDay;
 				
-				for(int i = 0; i < _class.getSpeciality().getMaxContinuesLessonCanTeach() && 
+				for(int i = 0; i < _class.getCourse().getMaxContinuesLessonCanTeach() && 
 						_class.getLeftOverLessonPerWeek() > 0 && !isOverComeMaxLessonsCanHaveEachDay ; i++) {
 					
 					boolean isAddingSuccessfully = this.arrangeLessonSystem.addLesson(_class, t, currentLessonsTaughtEachTeacher);

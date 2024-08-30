@@ -10,9 +10,9 @@ public class isOverComeMaxQuantitiesContinuesLessonPerSpecialty extends ArrangeL
 	@Override
 	public boolean checkConditionWithIndexLesson(int indexLesson) {
 		
-		String specialtyNeedAdding = _class.getSpeciality().getName();
+		String specialtyNeedAdding = _class.getCourse().getName();
 		
-		int maxContinuesSameLessons =  _class.getSpeciality().getMaxContinuesLessonCanTeach();
+		int maxContinuesSameLessons =  _class.getCourse().getMaxContinuesLessonCanTeach();
 		
 		String className = _class.getName();
 		

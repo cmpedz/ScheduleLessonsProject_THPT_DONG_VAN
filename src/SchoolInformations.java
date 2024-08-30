@@ -6,7 +6,7 @@ public class SchoolInformations implements ISchoolInformations{
 	
 	private static SchoolInformations instance = null;
 	
-	private final Map<String, Speciality> SPECIALTY_LIST = new TreeMap<String, Speciality>();
+	private final Map<String, Course> SPECIALTY_LIST = new TreeMap<String, Course>();
 	
 	private final ArrayList<String> GROUPS = new ArrayList<String>();
 	
@@ -75,7 +75,7 @@ public class SchoolInformations implements ISchoolInformations{
 	}
 
 	@Override
-	public Map<String, Speciality> getSpecialtyList() {
+	public Map<String, Course> getSpecialtyList() {
 		// TODO Auto-generated method stub
 		
 		return instance.SPECIALTY_LIST;

@@ -1,5 +1,5 @@
 
-public class Speciality {
+public class Course {
 	
 	private boolean isInMorning;
 	
@@ -12,7 +12,7 @@ public class Speciality {
 	private final String GROUP;
 	
 
-	public Speciality( String nAME, int mAX_CONTINUES_LESSONS_CAN_TEACH, boolean iS_IN_MORNING,
+	public Course( String nAME, int mAX_CONTINUES_LESSONS_CAN_TEACH, boolean iS_IN_MORNING,
 			boolean iS_MAIN_COURSE, String gROUP) {
 		
 		super();

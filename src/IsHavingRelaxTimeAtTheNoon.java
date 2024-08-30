@@ -12,7 +12,7 @@ public class IsHavingRelaxTimeAtTheNoon extends ArrangeLessonConditionWithIndex{
 		// TODO Auto-generated method stub
 		int firstLessonInTheAfternoonIndex = SchoolInformations.MAX_LESSONS_IN_MORNING;
 		
-		boolean isInMorning = _class.getSpeciality().isInMorning();
+		boolean isInMorning = _class.getCourse().isInMorning();
 		
 		boolean isFirstLessonInTheAfternoon = indexLesson == firstLessonInTheAfternoonIndex;
 		

@@ -98,7 +98,7 @@ public class ArrangeLessonConditionsContainer implements IArrangeLessonCondition
 		
 		boolean canAddLesson = false;
 		
-		boolean isInMorning = _class.getSpeciality().isInMorning();
+		boolean isInMorning = _class.getCourse().isInMorning();
 		
 		int maxLessonHas = 0;
 		

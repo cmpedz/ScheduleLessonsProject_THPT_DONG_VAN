@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 
 public class ScheduleEachWeek {
@@ -11,14 +12,17 @@ public class ScheduleEachWeek {
 	
 	private LessonsTaughtEachTeacherStorage lessonsTaughtEachTeacherStorage = new LessonsTaughtEachTeacherStorage();
 	
-	private ArrayList<Teacher> teachers = SchoolInformations.getInstance().getCurrentTeacherList();
+	private ArrayList<Teacher> teachersWhoNotTeachMainCourse = new ArrayList<Teacher>();
+	
+	private ArrayList<Teacher> teachersWhoTeachMainCourse = new ArrayList<Teacher>();
+	
 	
 	private RemoveTeacherWhoHasEnoughLessonsSystem removeTeacherSystem = new RemoveTeacherWhoHasEnoughLessonsSystem();
 	
 	
 	public static final int MAX_REPEAT = 10;
 	
-	public ScheduleEachWeek() {
+	public ScheduleEachWeek() throws Exception {
 		super();
 		
 		for( int i = 0; i < scheduleEachDays.length; i++) {
@@ -27,21 +31,45 @@ public class ScheduleEachWeek {
 			
 		}
 		
-		
+		seperateTeacherWhoTeachesMainCourseAndWhoDoesnt();
 		
 	}
 	
-	
+	private void seperateTeacherWhoTeachesMainCourseAndWhoDoesnt() throws Exception {
+		
+			for(Teacher t : SchoolInformations.getInstance().getCurrentTeacherList()) {
+			
+			Teacher teacherTeachesMainCourse = new Teacher(t.getNAME(), t.getGROUP(), t.getDayOff());
+			
+			Teacher teacherNotTeachesMainCourse = new Teacher(t.getNAME(), t.getGROUP(), t.getDayOff());
+			
+			for(SchoolClass _class : t.getClassesTeaching()) {
+				if(_class.getCourse().isIS_MAIN_COURSE()) {
+					teacherTeachesMainCourse.addClassTeaching(_class);
+				} else {
+					teacherNotTeachesMainCourse.addClassTeaching(_class);
+				}
+			}
+			
+			if(teacherTeachesMainCourse.getClassesTeaching().size() > 0) {teachersWhoTeachMainCourse.add(teacherTeachesMainCourse);}
+			
+			if(teacherNotTeachesMainCourse.getClassesTeaching().size() > 0) {teachersWhoNotTeachMainCourse.add(teacherNotTeachesMainCourse);}
+			
+		}
+	}
 	
 	public void arrangeLessons() {
 		
 		int repeatQuantities = 0;
 		
-		while(repeatQuantities < MAX_REPEAT && teachers.size() != 0) {
+		while(repeatQuantities < MAX_REPEAT && teachersWhoNotTeachMainCourse.size() != 0
+				&& teachersWhoTeachMainCourse.size() != 0) {
 			
 			int dayWorkingIndex = 0;
 			
-			removeTeacherSystem.removeTeacherWhoMeetLessonsQuantities(teachers);
+			removeTeacherSystem.removeTeacherWhoMeetLessonsQuantities(teachersWhoNotTeachMainCourse);
+			
+			removeTeacherSystem.removeTeacherWhoMeetLessonsQuantities(teachersWhoTeachMainCourse);
 			
 			lessonsTaughtEachTeacherStorage.resetData();
 			
@@ -61,12 +89,21 @@ public class ScheduleEachWeek {
 			
 			//lessonsTaughtEachTeacherStorage.checkData();
 			
-			arrangeLessonsEachPriorityType();
+			arrangeLessonsEachPriorityType(teachersWhoTeachMainCourse);
+			
+			arrangeLessonsEachPriorityType(teachersWhoNotTeachMainCourse);
+			
+			
 			
 			repeatQuantities ++;
 			
 			System.out.println("-----------------" + repeatQuantities + "-------------------------");
-			printCurrentLessonsTaughtPerTeacher();
+			try {
+				printCurrentLessonsTaughtPerTeacher();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println("------------------------------------------------------------------");
 		}
 		
@@ -88,7 +125,7 @@ public class ScheduleEachWeek {
 
 
 	
-	private void arrangeLessonsEachPriorityType() {
+	private void arrangeLessonsEachPriorityType(ArrayList<Teacher> teachers) {
 		
 		
 		for(Teacher teacher : teachers) {
@@ -96,15 +133,6 @@ public class ScheduleEachWeek {
 			ArrayList<QuantitiesLessonsTaughtPerDay> workingsSchedule = lessonsTaughtEachTeacherStorage.getLessonsTaughtEachDayEachTeacher().get(teacher.getNAME());
 			
 			int leftOverWorkingDays = 5;
-			
-			if(teacher.getNAME().equals("Mã Đức Bảo")) {
-				System.out.println(teacher.getNAME());
-				System.out.println("leftover lessons :");
-				for(SchoolClass _class : teacher.getClassesTeaching()) {
-					System.out.println(_class.getName() + " has : " + _class.getLessonsPerWeek());
-				}
-			}
-			
 			
 			for(QuantitiesLessonsTaughtPerDay aWorkingDay : workingsSchedule) {
 				
@@ -139,7 +167,38 @@ public class ScheduleEachWeek {
 	}
 
 
-	public void printCurrentLessonsTaughtPerTeacher() {
+	public void printCurrentLessonsTaughtPerTeacher() throws Exception {
+		
+		
+		TreeMap<String, Teacher> teachers = new TreeMap<String, Teacher>();
+		
+		for(Teacher t : teachersWhoNotTeachMainCourse) {
+			String teacherName = t.getNAME();
+			if(teachers.get(teacherName) == null) {
+				teachers.put(teacherName, new Teacher(teacherName, t.getGROUP(), t.getDayOff()));
+			}
+			
+			for(SchoolClass _Class : t.getClassesTeaching()) {
+				
+				teachers.get(teacherName).addClassTeaching(_Class);
+			}
+			
+		}
+		
+		for(Teacher t : teachersWhoTeachMainCourse) {
+			
+			String teacherName = t.getNAME();
+			
+			if(teachers.get(teacherName) == null) {
+				
+				teachers.put(teacherName, new Teacher(teacherName, t.getGROUP(), t.getDayOff()));
+			}
+			
+			for(SchoolClass _Class : t.getClassesTeaching()) {
+				teachers.get(teacherName).addClassTeaching(_Class);
+			}
+			
+		}
 		
 		for(String teacherName : lessonsTaughtEachTeacherStorage.getLessonsTaughtEachDayEachTeacher().keySet()) {
 			
@@ -152,7 +211,9 @@ public class ScheduleEachWeek {
 				
 			}
 			
-			Teacher assessedTeacher = FormatDisplayAndExchangeData.getInstance().getTeacherObjectByOwnerName(teacherName);
+			Teacher assessedTeacher = teachers.get(teacherName);
+			
+			if(assessedTeacher == null) continue;
 			
 			int leftOverLessons = assessedTeacher.getSumLessonsTeach();
 			
@@ -162,7 +223,7 @@ public class ScheduleEachWeek {
 				
 					for(SchoolClass s : assessedTeacher.getClassesTeaching()) {
 						
-							System.out.println(s.getName() + " , " + s.getSpeciality().getName());
+							System.out.println(s.getName() + " , " + s.getCourse().getName());
 		
 					}
 				
@@ -174,7 +235,7 @@ public class ScheduleEachWeek {
 		}
 	}
 	
-	public void printLeftOverLessons() {
+	public void printLeftOverLessons(ArrayList<Teacher> teachers) {
 		
 		System.out.println("check available leftover lessons : ");
 		
@@ -187,7 +248,7 @@ public class ScheduleEachWeek {
 			
 				for(SchoolClass c : t.getClassesTeaching()) {
 					System.out.println("class name : " + c.getName());
-					System.out.println("speciality name : " + c.getSpeciality().getName());
+					System.out.println("speciality name : " + c.getCourse().getName());
 					System.out.println("leftover lessons : " + c.getLeftOverLessonPerWeek());
 				}
 			

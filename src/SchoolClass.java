@@ -9,7 +9,7 @@ public class SchoolClass {
 	
 	private final int lessonPerYear;
 	
-	private String specialityName;
+	private String courseName;
 	
 	public static final String Error_Class_Name = "Tên lớp học không tồn tại|";
 	
@@ -21,7 +21,7 @@ public class SchoolClass {
 		this.NAME = name;
 		this.lessonsPerWeek = lessonsPerWeek;
 		this.lessonPerYear = lessonPerYear;
-		this.specialityName = speciality;
+		this.courseName = speciality;
 		this.leftOverLessonPerWeek = lessonsPerWeek;
 		
 		if(!checkValidInfors().equals("")) {
@@ -36,7 +36,7 @@ public class SchoolClass {
 		
 		boolean isClassExisted = SchoolInformations.getInstance().getClassesNameList().contains(NAME);
 		
-		boolean isSpecialtyExisted = SchoolInformations.getInstance().getSpecialtyList().get(specialityName) != null;
+		boolean isSpecialtyExisted = SchoolInformations.getInstance().getSpecialtyList().get(courseName) != null;
 		
 		if(!isClassExisted) {
 			error += Error_Class_Name;
@@ -63,12 +63,12 @@ public class SchoolClass {
 		return lessonPerYear;
 	}
 
-	public Speciality getSpeciality() {
-		return SchoolInformations.getInstance().getSpecialtyList().get(specialityName);
+	public Course getCourse() {
+		return SchoolInformations.getInstance().getSpecialtyList().get(courseName);
 	}
 
-	public void setSpecialityName(String specialityName) {
-		this.specialityName = specialityName;
+	public void setCourseName(String CourseName) {
+		this.courseName = CourseName;
 	}
 
 	public int getLeftOverLessonPerWeek() {
@@ -84,7 +84,7 @@ public class SchoolClass {
 		return  "Class Name: " + NAME + "\n" + 
 				"Lesson Per Week: " + lessonsPerWeek + "\n" +
 				"Lesson Per Year: " + lessonPerYear + "\n" +
-				"Specialty Name: " + specialityName + "\n";
+				"Specialty Name: " + courseName + "\n";
 	}		   
 		
 

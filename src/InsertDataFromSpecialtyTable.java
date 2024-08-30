@@ -17,7 +17,7 @@ public class InsertDataFromSpecialtyTable extends InsertDataFromEachTable {
 		
 		String group = row.getCell(5).getStringCellValue();
 		
-		Speciality speciality = new Speciality(specialtyName, maxLessonContinues, isInMorning, isMainCourse, group);
+		Course speciality = new Course(specialtyName, maxLessonContinues, isInMorning, isMainCourse, group);
 		
 		schoolInformations.getSpecialtyList().put(specialtyName, speciality);
 
